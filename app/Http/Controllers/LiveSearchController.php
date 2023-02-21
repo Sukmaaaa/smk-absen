@@ -28,8 +28,10 @@ class LiveSearchController extends Controller
     public function action(Request $request)
     {
         // nanti $name = $request->rfid;
-       $name = $request->name;
-       $results = DB::table('users')->where('name', 'like', '%'.$name.'%')->get();
+       $id = $request->id;
+       $results = DB::table('users')
+       ->where('id', $id)
+       ->get();
        $datas = count($results);
 
         // Cek Data

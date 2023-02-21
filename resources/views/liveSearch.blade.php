@@ -16,66 +16,44 @@ https://cdn.jsdelivr.net/npm/jquery@3.6.3/dist/jquery.min.js
             </div>
 
             <!-- HASIL -->
-            <div class="mt-2" id="result"></div>
+            <div class="mt-2" id="resultNama"></div>
+            <div class="mt-2" id="resultPassword"></div>
         </div>    
-
-        <!-- <div class="container">
-        @foreach($User as $hehe)
-            <h1 id="name"> {{$hehe->name}} </h1>
-        @endforeach
-        </div> -->
-
 
         <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
         <script>
             const rfid = $('#inputRFID')
-            const result = $('#result')
+            const resultNama = $('#resultNama')
+            const resultPassword = $('#resultPassword')
 
+            // LIVESEARCH OK
             $(document).ready(() => {
                 readData();
                 rfid.keyup(() => {
                     if (!rfid.val()) return readData()
 
+                    resultNama.html('<p class="text-muted">Mencari data...</p>')
+
                     $.ajax({
                         type: 'get',
                         url: "{{ url('action') }}",
                         data: {
-                            'name': rfid.val()
+                            'id': rfid.val()
                         },
                         success: (data) => {
-                            result.html(data)
+                            const res = JSON.parse(data)
+                            resultNama.html(res.name)
+                            resultPassword.html(res.password)
                         }
                     })
                 })
             })
 
-             // $(document).ready(function(){
-            //     readData();
-            //     $("#input").keyup(function(){
-            //         var strcari = $("#input").val();
-            //         if (strcari != "") {
-            //             $("#hasil").html('<p class="text-muted">Mencari data...</p>');
-
-            //             $.ajax({
-            //                 type: "get",
-            //                 url: "{{ url('action') }}",
-            //                 data: "name=" + strcari,
-            //                 success: function(data){
-            //                     $("#hasil").html(data);
-            //                 }
-            //             });
-            //         } else {
-            //             readData();
-            //         }
-            //     });
-
-            // });
-
             function readData() {
                 $.get("{{ url('hasil') }}", {}, 
                 
                 function(data, status){
-                    result.html(data);
+                    $('#resultNama, #resultPassword').html('')
                 });
             }
         </script>
