@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\absenController;
+use App\Http\Controllers\LiveSearchController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,4 +20,10 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::get('/index', [App\Http\Controllers\absenController::class, 'index'])->name('index');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    
+// LIVE SEARCH
+Route::get('/liveSearch', [App\Http\Controllers\LiveSearchController::class, 'liveSearch'])->name('liveSearch');
+Route::get('/hasil', [App\Http\Controllers\LiveSearchController::class, 'hasil'])->name('hasil');
+Route::get('/action', [App\Http\Controllers\LiveSearchController::class, 'action'])->name('action');
