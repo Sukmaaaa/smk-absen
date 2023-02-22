@@ -37,4 +37,18 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+
+    public function username()
+    {
+        // FILTER USERNAME & EMAIL
+
+        // MENGAMBIL INPUT
+        $loginValue = request('username');
+        // CHECK EMAIL ? USERNAME ? TEXT BIASA
+        $this->username = filter_var($loginValue, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
+        // MERGE DARI FILTER
+        request()->merge([$this->username => $loginValue]);
+        // MENGEMBALIKAN NILAI INPUT
+        return property_exists($this, 'username') ? $this->username : 'email';
+    }
 }
