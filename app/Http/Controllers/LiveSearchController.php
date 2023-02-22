@@ -36,7 +36,7 @@ class LiveSearchController extends Controller
 
         // Cek Data
        if ($datas == 0) {
-            return '<p class="text-muted">Data tidak terdaftar</p>';
+            return json_encode(['error'=>true,'msg' => 'Data tidak ditemukan!']);
        } else{
             return view('ajaxpage')->with([
                 'data' => $results
