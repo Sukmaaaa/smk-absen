@@ -28,6 +28,7 @@
             $(document).ready(() => {
                 readData();
                 rfid.keyup(() => {
+                    $('#resultNama, #resultPassword').html('')
                     if (!rfid.val()) return readData()
 
                     resultNama.html('<p class="text-muted">Mencari data...</p>')
