@@ -27,10 +27,9 @@ class LiveSearchController extends Controller
     // Konten hasil pencarian
     public function action(Request $request)
     {
-        // nanti $name = $request->rfid;
-       $id = $request->id;
+       $rfid = $request->rfid;
        $results = DB::table('users')
-       ->where('id', $id)
+       ->where('rfid', $rfid)
        ->get();
        $datas = count($results);
 

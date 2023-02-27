@@ -19,7 +19,8 @@ class userSeeder extends Seeder
         User::create([
             'name' => 'Sukma',
             'username' => 'sukma_ajh',
-            'password' => Hash::make('hehe')
+            'password' => Hash::make('hehe'),
+            'RFID' => '0x39 0x2e 0x6f 0x4a'
         ]);
     }
 }

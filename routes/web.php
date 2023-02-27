@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\absenController;
 use App\Http\Controllers\LiveSearchController;
+use App\Http\Controllers\AbsensiGuruController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -35,3 +36,20 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+// Route::post('/absen-guru/hadir', 'AbsensiGuruController@absenHadir')->middleware('auth');
+// Route::post('/absen-guru/pulang', 'AbsensiGuruController@absenPulang')->middleware('auth');
+
+// // ABSENSI GURU
+// Route::get('/absensi/guru', [AbsensiGuruController::class, 'index'])->middleware('auth');
+// Route::get('/absensi/guru/create', [AbsensiGuruController::class, 'create'])->middleware('auth');
+// Route::post('/absensi/guru', [AbsensiGuruController::class, 'store'])->middleware('auth');
+// Route::get('/absensi/guru/{absensi}', [AbsensiGuruController::class, 'store'])->middleware('auth');
+
+
+// Route::resource('/absensi/guru', AbsensiGuruController::class);
+
+Route::get('/absensi/guru', [AbsensiGuruController::class, 'index'])->name('guru.index');
+Route::post('/absensi/guru', [AbsensiGuruController::class, 'store'])->name('guru.store');
+Route::get('/absensi/guru/create', [AbsensiGuruController::class, 'create'])->name('guru.create');
+Route::put('/absensi/guru', [AbsensiGuruController::class, 'update'])->name('guru.update');
