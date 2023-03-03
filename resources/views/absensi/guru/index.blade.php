@@ -21,9 +21,8 @@
     $newAbsensi = [];
     foreach ($absensi as $absensis) {
         $btnDetails = '<a class="btn btn-xs btn-default text-teal mx-1 shadow" title="Details" href="'.route('guru.index', $absensis->id).'"><i class="fa fa-lg fa-fw fa-eye"></i></a>';
-        $formActions = '<div class="d-flex justify-content-center">' . $btnEdit . ' ' . $btnDelete . ' ' . $btnDetails . '</div>';
 
-        $newAbsensi[] = [$i++, '<img src="'.$absensis->cover.'" width="155px">', $absensis->title, $formActions ];
+        $newAbsensi[] = [$i++, $absensis->id];
     }
 
     $config = [

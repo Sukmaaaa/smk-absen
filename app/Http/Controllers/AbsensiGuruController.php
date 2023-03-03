@@ -43,19 +43,27 @@ class AbsensiGuruController extends Controller
         $rfid = $request->input('rfid_guru');    
         $user = User::where('rfid', $rfid)->get()->first();
         
-        
-        if (!User::where('rfid', $rfid)->exists()) {
+        // KALO USER EXIST
+        if (!$user) {
             return redirect()->route('guru.create')->with(['error'=> 'RFID tidak ditemukan.']);
         }
 
-        $dataAbsen = absensiGuru::create([
-            'user_id' => $user->id,
-            'absen_hadir' => $request->input('inputLocalTime')
-        ]);
-        
-        $dataAbsen->save();
+        $inputLocalTime = $request->input('inputLocalTime');
 
-        return redirect()->route('guru.create')->with(['success'=> 'Absensi berhasil disimpan.']);
+        // CHECK
+        if (strlen($rfid) == 19) {
+            $dataAbsen = absensiGuru::create([
+                'user_id' => $user->id,
+                'absen_hadir' => $inputLocalTime
+            ]);
+            $dataAbsen->save();
+
+            return redirect()->route('guru.create')->with(['success'=> 'Absensi berhasil disimpan.']);
+        } else{
+            return redirect()->route('guru.create')->with(['error'=> 'Panjang RFID harus 19 karakter.']);
+        }
+        
+
     }
 
     /**
