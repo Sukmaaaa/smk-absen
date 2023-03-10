@@ -96,7 +96,7 @@
                     if (res.error) {
                         resultNama.html("-")
                         resultPassword.html("-")
-                        responses.html(res.msg)
+                        return responses.html(res.msg)
                     } else {
                         resultNama.html(res.name)
                         resultPassword.html(res.password)
