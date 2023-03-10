@@ -36,7 +36,6 @@
                             <div class="col-md-6" id="resultPassword"></div>
                         </div>
 
-                        <!-- <input type="time" step=1 value="" id="inputLocalTime"></input> -->
 
                         <!-- LOCAL TIME HADIR -->
                         <input type="datetime-local" id="inputLocalTime" name="inputLocalTime">
@@ -91,6 +90,14 @@
                     },
                     success: (data) => {
                     const res = JSON.parse(data)
+                    
+                    // CONSOLE PANJANG INPUTAN
+                    console.log(rfid.val().length);
+
+                    // JIKA PANJANG RFID == 19 MAKA KIRIM OTOMATIS
+                    if (rfid.val().length == 19) {
+                        $('button[type="submit"]').click();
+                    }
 
                     // JIKA DATA TIDAK ADA
                     if (res.error) {
@@ -114,15 +121,8 @@
 
                         const rfid = $('#form')
                     }
-                    
-                    console.log(rfid.val().length);
 
-                    // JIKA PANJANG RFID == 19 MAKA KIRIM OTOMATIS
-                    if (rfid.val().length == 19) {
-                        $('button[type="submit"]').click();
-                    }
-
-                    // MENAMPILKAN PESAN ERROR JIKA DATANYA TIDAK DITEMUKAN
+                    // MENGOSONGKAN inputLocalTime VALUE JIKA RESULT ERROR
                     if (res.error) {
                         inputLocalTime.val('')
                     }
