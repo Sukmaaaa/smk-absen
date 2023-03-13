@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Tambah absen hadir')
+@section('title', 'Tambah absen pulang')
 
 @section('css')
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.3/dist/jquery.min.js"></script>
@@ -8,7 +8,7 @@
 
 @section('content_header')
     <div class="d-flex justify-content-between">
-        <h1>Tambah absen hadir</h1>
+        <h1>Tambah absen pulang</h1>
         <span id="time" class="jam"></span>
     </div>
 @stop
@@ -16,25 +16,21 @@
 @section('content')
         <div class="card">
             <div class="card-body">
-                <!-- FORM KEHADIRAN -->
-                <form action="{{ route('guru.store') }}" method="POST">
+                 <form action="{{ route('guru.update') }}" method="POST">
                     @csrf
+                    @method('PUT')
                     <div class="form-group">
                         <!-- SEARCH -->
                         <label>RFID Guru</label><label class="fw-bold" style="color:red; font-weight:">*</label>
                         <input type="text" class="form-control" id="inputRFID" placeholder="0x82 1x2d 21dp 92x1" name="rfid_guru">
-                        <!-- END SEARCH -->
-
-                        <!-- RESPON SEARCH -->
                         <div class="mt-2" id="responses"></div>
-                        <!-- END RESPON SEARCH -->
-
-                        <!-- LABEL FOTO & NAMA -->
+                        
+                        <!-- LABEL FOTO DAN NAMA -->
                         <div class="row mt-4">
                             <label class="col-md-6">Foto</label>
                             <label class="col-md-6">Nama Guru</label>
                         </div>
-                        <!-- END LABEL FOTO & NAMA -->
+                        <!-- END LABEL FOTO DAN NAMA -->
 
                         <!-- HASIL FOTO & NAMA -->
                         <div class="row">
@@ -44,7 +40,7 @@
                         <!-- END HASIL FOTO & NAMA -->
 
                         <!-- LABEL KOMPETENSI & JENIS KELAMIN -->
-                         <div class="row mt-4">
+                        <div class="row mt-4">
                             <label class="col-md-6">Kompetensi</label>
                             <label class="col-md-6">Jenis Kelamin</label>
                         </div>
@@ -57,22 +53,21 @@
                         </div>
                         <!-- END HASIL KOMPETENSI -->
 
+
                         <!-- LOCAL TIME HADIR -->
-                        <input class="mt-4" type="datetime-local" id="inputLocalTime" name="inputLocalTime">
-                        <!-- END LOCAL TIME HADIR -->
+                        <input type="datetime-local" id="inputLocalTime" name="inputLocalTimePulang">
                         
                         <!-- TOMBOL SIMPAN & KEMBALI -->
                         <footer class="mt-4">
                             <div class="d-flex flex-row justify-content-between">
                                 <a href="{{ route('guru.index') }}" class="btn btn-default">Kembali</a>
-                                <x-adminlte-button class="btn bg-dark" label="Simpan" type="submit" id="form"></x-adminlte-button>
+                                <x-adminlte-button class="btn bg-dark" label="Simpan" type="submit"></x-adminlte-button>
                             </div>
                         </footer>
                         <!-- END TOMBOL SIMPAN & KEMBALI -->
                     </div>
                 </form>
-                <!-- END FORM KEHADIRAN -->
-
+                <!-- ENDFORM PULANG -->
             </div>
         </div>    
 @stop
@@ -85,7 +80,7 @@
 <script type="text/javascript" src="{{ URL::asset('js/localTime.js') }}"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-        $("#inputRFID").trigger("focus");
+        $("#inputRFID").trigger("focus"); // FOCUS PADA ELEMENT
     </script>
     <script>
         const rfid = $('#inputRFID')
@@ -159,6 +154,7 @@
                     $("#responses").hide()
                     }
                     
+                    
                 })
                 $("#responses").show()
                 })
@@ -198,4 +194,5 @@
             })
         @endif
     </script>
+
 @stop

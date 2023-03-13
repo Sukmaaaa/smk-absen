@@ -53,5 +53,6 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/absensi/guru/store', [AbsensiGuruController::class, 'store'])->name('guru.store');
     Route::get('/absensi/guru/create', [AbsensiGuruController::class, 'create'])->name('guru.create');
     Route::put('/absensi/guru/update', [AbsensiGuruController::class, 'update'])->name('guru.update');
+    Route::get('/absensi/guru/edit/', [AbsensiGuruController::class, 'edit'])->name('guru.edit');
 });
 

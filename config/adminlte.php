@@ -311,12 +311,22 @@ return [
             'url'  => 'admin/blog',
             'can'  => 'manage-blog',
         ],
+        // MENU
         [
-            'text'        => 'pages',
-            'url'         => 'admin/pages',
-            'icon'        => 'far fa-fw fa-file',
-            'label'       => 4,
-            'label_color' => 'success',
+            'text'        => 'Kehadiran',
+            'icon'        => 'fas fa-fw fa-book-open',
+            'submenu' => [
+                [
+                    'text' => 'Guru',
+                    'route'  => 'guru.index',
+                    'icon' => 'fas fa-fw fa-chalkboard-teacher'
+                ],
+                [
+                    'text' => 'Murid',
+                    'url'  => '#',
+                    'icon' => 'fas fa-fw fa-user'
+                ],
+                ],
         ],
         ['header' => 'account_settings'],
         [
@@ -330,8 +340,8 @@ return [
             'icon' => 'fas fa-fw fa-lock',
         ],
         [
-            'text'    => 'multilevel',
-            'icon'    => 'fas fa-fw fa-share',
+            'text'    => 'Kehadiran',
+            'icon'    => 'fas fa-fw fa-book-open',
             'submenu' => [
                 [
                     'text' => 'level_one',

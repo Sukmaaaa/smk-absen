@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\absensiGuru;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class AbsensiGuruController extends Controller
@@ -42,7 +43,7 @@ class AbsensiGuruController extends Controller
     {       
         $rfid = $request->input('rfid_guru');    
         $user = User::where('rfid', $rfid)->get()->first();
-        
+
         // KALO USER EXIST
         if (!$user) {
             return redirect()->route('guru.create')->with(['error'=> 'RFID tidak ditemukan.']);
@@ -52,17 +53,25 @@ class AbsensiGuruController extends Controller
 
         // CHECK
         if (strlen($rfid) == 19) {
+            $today = Carbon::today();
+            $dataAbsen = absensiGuru::where('user_id', $user->id)
+                ->whereDate('created_at', $today)
+                ->get()
+                ->first();
+
+            if ($dataAbsen) {
+                return redirect()->route('guru.create')->with(['error'=> 'Anda sudah melakukan absensi hari ini.']);
+            }
+
             $dataAbsen = absensiGuru::create([
                 'user_id' => $user->id,
                 'absen_hadir' => $inputLocalTime
             ]);
-            $dataAbsen->save();
 
             return redirect()->route('guru.create')->with(['success'=> 'Absensi berhasil disimpan.']);
-        } else{
+        } else {
             return redirect()->route('guru.create')->with(['error'=> 'Panjang RFID harus 19 karakter.']);
         }
-        
 
     }
 
@@ -83,9 +92,9 @@ class AbsensiGuruController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit()
     {
-        //
+        return view('absensi.guru.edit');
     }
 
     /**
@@ -101,7 +110,7 @@ class AbsensiGuruController extends Controller
         $user = User::where('rfid', $rfid)->get()->first();
         
         if (!User::where('rfid', $rfid)->exists()) {
-            return redirect()->route('guru.create')->with('error', 'RFID tidak ditemukan.');
+            return redirect()->route('guru.edit')->with('error', 'RFID tidak ditemukan.');
         }
 
         $dataAbsensi = absensiGuru::where('user_id', $user->id)->orderByDesc('id')->get()->first();
@@ -111,7 +120,7 @@ class AbsensiGuruController extends Controller
             'absen_pulang' => $request->input('inputLocalTimePulang')
         ]);
         
-        return redirect()->route('guru.create')->with('success', 'Absensi berhasil disimpan.');
+        return redirect()->route('guru.edit')->with('success', 'Absensi berhasil disimpan.');
     }
 
     /**
