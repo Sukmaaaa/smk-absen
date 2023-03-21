@@ -1,32 +1,32 @@
 @extends('adminlte::page')
 
-@section('title', 'Absensi Guru')
+@section('title', 'Absensi Murid')
 @section('plugins.DatatablesPlugin', true)
 @section('plugins.Datatables', true)
-@section('dashboard_url', 'Guru Absensi')
+@section('dashboard_url', 'Murid Absensi')
 
 @section('content_header')
     <div class="d-flex justify-content-between">
-        <h1>Absensi Guru</h1>
+        <h1>Absensi Murid</h1>
         <span id="time" class="jam"></span>
     </div>
 
     <div class="justify-content-between mx-1 mt-3">
-        <a href="{{ route('guru.create') }}" class="btn bg-dark">Tambah absen hadir</a>
-        <a href="{{ route('guru.edit') }}" class="btn bg-dark ms-5">Tambah absen pulang</a>
+        <a href="{{ route('murid.create') }}" class="btn bg-dark">Tambah absen hadir</a>
+        <a href="{{ route('murid.edit') }}" class="btn bg-dark ms-5">Tambah absen pulang</a>
     </div>
 @stop
 
 @section('content')
     @php
 
-    $heads = ['No.', 'Nama Guru'];
+    $heads = ['No.', 'Nama Murid'];
     $i = 1;
     $newAbsensi = [];
     foreach ($absensi as $absensis) {
-        $btnDetails = '<a class="btn btn-xs btn-default text-teal mx-1 shadow" title="Details" href="'.route('guru.index', $absensis->id).'">';
+        $btnDetails = '<a class="btn btn-xs btn-default text-teal mx-1 shadow" title="Details" href="'.route('murid.index', $absensis->id).'">';
 
-        $newAbsensi[] = [$i++, $absensis->user->name];
+        $newAbsensi[] = [$i++, $absensis->murid->name];
     }
 
     $config = [

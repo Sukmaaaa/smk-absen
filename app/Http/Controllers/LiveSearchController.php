@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 
 class LiveSearchController extends Controller
 {
-    // Halaman
+    // HALAMAN
     public function liveSearch()
     {
         $user = User::all();

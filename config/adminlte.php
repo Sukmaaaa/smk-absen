@@ -323,7 +323,7 @@ return [
                 ],
                 [
                     'text' => 'Murid',
-                    'url'  => '#',
+                    'url'  => 'guru.index',
                     'icon' => 'fas fa-fw fa-user'
                 ],
                 ],
