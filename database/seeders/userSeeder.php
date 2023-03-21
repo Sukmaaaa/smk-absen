@@ -48,6 +48,18 @@ class userSeeder extends Seeder
 
 
         User::create([
+            'NUPTK' => '0000000000',
+            'name' => 'SMK BPI',
+            'username' => 'SMK_BPI',
+            'tempat_lahir' => 'Bandung',
+            'tanggal_lahir' => '2000-01-01',
+            'jenis_kelamin' => 'laki-laki',
+            'kompetensi' => 'Matematika',
+            'password' => Hash::make('SMKBISA'),
+            'RFID' => '0000 0000 0000 0000'
+        ])->assignRole('super admin');
+
+        User::create([
             'NUPTK' => '1',
             'name' => 'Sukma',
             'username' => 'sukma_ajh',
