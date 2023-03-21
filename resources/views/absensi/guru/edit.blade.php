@@ -9,6 +9,10 @@
 @section('content_header')
     <div class="d-flex justify-content-between">
         <h1>Tambah absen pulang</h1>
+        <span id="tanggal" class="tanggal align-self-center"></span>
+    </div>
+
+    <div class="d-flex justify-content-end">
         <span id="time" class="jam"></span>
     </div>
 @stop
@@ -47,7 +51,7 @@
                         <!-- END LABEL KOMPETENSI & JENIS KELAMIN -->
 
                         <!-- HASIL KOMPETENSI -->
-                        <div class="row">
+                        <div class="row mb-3">
                             <div class="col-md-6" id="resultKompetensi"></div>
                             <div class="col-md-6" id="resultJenisKelamin"></div>
                         </div>
@@ -77,7 +81,9 @@
 @stop
 
 @section('js')
-<script type="text/javascript" src="{{ URL::asset('js/localTime.js') }}"></script>
+    <!-- DIDAHULUKAN KARENA DI DALAM tanggal.js MEMANGGIL VARIABLE DI DALAM localTime.js -->
+    <script type="text/javascript" src="{{ URL::asset('js/localTime.js') }}"></script> 
+    <script type="text/javascript" src="{{ URL::asset('js/tanggal.js') }}"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         $("#inputRFID").trigger("focus"); // FOCUS PADA ELEMENT
@@ -164,7 +170,7 @@
         // BACA DATA
         function readData() {
             $.get("{{ url('hasil') }}", {}, function (data, status) {
-            $('#resultFoto, #resultNama, #resultKompetensi, #resultJenisKelamin').html('')
+            $('#resultFoto, #resultNama, #resultKompetensi, #resultJenisKelamin').html('-')
             inputLocalTime.val('')
             })
         }

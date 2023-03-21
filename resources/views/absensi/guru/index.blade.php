@@ -8,12 +8,15 @@
 @section('content_header')
     <div class="d-flex justify-content-between">
         <h1>Absensi Guru</h1>
-        <span id="time" class="jam"></span>
+        <span id="tanggal" class="tanggal align-self-center"></span>
     </div>
-
-    <div class="justify-content-between mx-1 mt-3">
-        <a href="{{ route('guru.create') }}" class="btn bg-dark">Tambah absen hadir</a>
-        <a href="{{ route('guru.edit') }}" class="btn bg-dark ms-5">Tambah absen pulang</a>
+    
+    <div class="d-flex justify-content-between mx-1 mt-3">
+        <div>
+            <a href="{{ route('guru.create') }}" class="btn bg-dark">Tambah absen hadir</a>
+            <a href="{{ route('guru.edit') }}" class="btn bg-dark ms-5">Tambah absen pulang</a>
+        </div>
+        <span id="time" class="jam align-self-center"></span>
     </div>
 @stop
 
@@ -57,5 +60,7 @@
 @stop
 
 @section('js')
-    <script type="text/javascript" src="{{ URL::asset('js/localTime.js') }}"></script>
+    <!-- DIDAHULUKAN KARENA DI DALAM tanggal.js MEMANGGIL VARIABLE DI DALAM localTime.js -->
+    <script type="text/javascript" src="{{ URL::asset('js/localTime.js') }}"></script> 
+    <script type="text/javascript" src="{{ URL::asset('js/tanggal.js') }}"></script>
 @stop

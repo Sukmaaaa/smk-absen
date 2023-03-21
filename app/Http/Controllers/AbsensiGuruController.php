@@ -29,7 +29,9 @@ class AbsensiGuruController extends Controller
     
     public function create()
     {
-        $users = User::all();
+        $users = User::all(); // AMBIL SEMUA USER
+
+        // ALIHKAN KE .. DENGAN DATA
         return view('absensi.guru.create', compact('users'));
     }
 
@@ -41,8 +43,8 @@ class AbsensiGuruController extends Controller
      */
     public function store(Request $request)
     {       
-        $rfid = $request->input('rfid_guru');    
-        $user = User::where('rfid', $rfid)->get()->first();
+        $rfid = $request->input('rfid_guru'); // MENGAMBIL INPUT DARI NAMA ELEMENT rfid_guru  
+        $user = User::where('rfid', $rfid)->get()->first(); 
 
         // KALO USER EXIST
         if (!$user) {

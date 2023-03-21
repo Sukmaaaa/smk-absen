@@ -11,29 +11,30 @@ class LiveSearchController extends Controller
     // HALAMAN
     public function liveSearch()
     {
-        $user = User::all();
+        $user = User::all(); // MENGAMBIL SELURUH USER
 
+        // ALIHKAN KE liveSearch DENGAN DATA
         return view('liveSearch')->with([
             'User' => $user
         ]);
     }
 
-    // Default 
+    // DEFAULT 
     public function hasil()
     {
         return 'hello';
     }
 
-    // Konten hasil pencarian
+    // DATA HASIL PENCAHARIAN
     public function action(Request $request)
     {
-       $rfid = $request->rfid;
-       $results = DB::table('users')
-       ->where('rfid', $rfid)
-       ->get();
-       $datas = count($results);
+       $rfid = $request->rfid; // MENGAMBIL INPUT RFID
+       $results = DB::table('users') // MENGAMBIL DATA DARI TABEL users
+       ->where('rfid', $rfid) // MENCARI RFID UNTUK DICOCOKKAN
+       ->get(); // MENGAMBIL DATA
+       $datas = count($results); // MENGHITUNG HASIL YANG SESUAI
 
-        // Cek Data
+        // CEK DATA
        if ($datas == 0) {
             return json_encode(['error'=>true,'msg' => 'Data tidak ditemukan!']);
        } else{

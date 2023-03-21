@@ -11,29 +11,30 @@ class LiveSearchMuridController extends Controller
     // HALAMAN
     public function liveSearch()
     {
-        $murid = murid::all();
+        $murid = murid::all(); // MENGAMBIL SELURUH DATA MURID
 
+        // ALIHKAN KE liveSearchMurid DENGAN DATA
         return view('liveSearchMurid')->with([
             'Murid' => $murid
         ]);
     }
 
-    // Default 
+    // DEFAULT 
     public function hasil()
     {
         return 'hello';
     }
 
-    // Konten hasil pencarian
+    // DATA HASIL PENCAHARIAN
     public function action(Request $request)
     {
-        $rfid = $request->rfid;
-        $results = DB::table('murids')
-        ->where('rfid', $rfid)
-        ->get();
-        $datas = count($results);
+        $rfid = $request->rfid; // MENGAMBIL INPUT RFID
+        $results = DB::table('murids') // MENGAMBIL DATA DARI TABEL murids
+        ->where('rfid', $rfid) // MENCARI RFID UNTUK DICOCOKKAN
+        ->get(); // MENGAMBIL DATA
+        $datas = count($results); // MENGHITUNG HASIL YANG SESUAI
 
-        // Cek Data
+        // CEK DATA
         if ($datas == 0) {
                 return json_encode(['error'=>true,'msg' => 'Data tidak ditemukan!']);
         } else{
