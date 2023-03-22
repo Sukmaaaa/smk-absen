@@ -61,5 +61,7 @@
 @stop
 
 @section('js')
-    <script type="text/javascript" src="{{ URL::asset('js/localTime.js') }}"></script>
+    <!-- DIDAHULUKAN KARENA DI DALAM tanggal.js MEMANGGIL VARIABLE DI DALAM localTime.js -->
+    <script type="text/javascript" src="{{ URL::asset('js/localTime.js') }}"></script> 
+    <script type="text/javascript" src="{{ URL::asset('js/tanggal.js') }}"></script>
 @stop

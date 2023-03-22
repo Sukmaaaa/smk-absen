@@ -7,6 +7,8 @@ use App\Http\Controllers\LiveSearchMuridController;
 use App\Http\Controllers\AbsensiGuruController;
 use App\Http\Controllers\AbsensiMuridController;
 use App\Http\Controllers\kompetensiController;
+use App\Http\Controllers\guruController;
+use App\Http\Controllers\permissionController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -47,6 +49,15 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 // Route::resource('/absensi/guru', AbsensiGuruController::class);
 Route::middleware(['auth'])->group(function () {
+    // PERMISSION
+    Route::get('/permission', [permissionController::class, 'index'])->name('permission.index')->middleware('can:view-permission');
+    Route::post('/permission', [permissionController::class, 'store'])->name('permission.store')->middleware('can:create-permission');
+    Route::get('/permission/create', [permissionController::class, 'create'])->name('permission.create')->middleware('can:create-permission');
+    Route::get('/permission/{permission}', [permissionController::class, 'show'])->name('permission.show')->middleware('can:view-permission');
+    Route::put('/permission/{permission}', [permissionController::class, 'update'])->name('permission.update')->middleware('can:edit-permission');
+    Route::delete('/permission/{permission}', [permissionController::class, 'destroy'])->name('permission.destroy')->middleware('can:delete-permission');
+    Route::get('/permission/{permission}/edit', [permissionController::class, 'edit'])->name('permission.edit')->middleware('can:edit-permission');
+    // KOMPETENSI
     Route::get('/kompetensi', [kompetensiController::class, 'index'])->name('kompetensi.index')->middleware('can:view-kompetensi');
     Route::post('/kompetensi', [kompetensiController::class, 'store'])->name('kompetensi.store')->middleware('can:create-kompetensi');
     Route::get('/kompetensi/create', [kompetensiController::class, 'create'])->name('kompetensi.create')->middleware('can:create-kompetensi');
@@ -54,13 +65,21 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/kompetensi/{kompetensi}', [kompetensiController::class, 'update'])->name('kompetensi.update')->middleware('can:edit-kompetensi');
     Route::delete('/kompetensi/{kompetensi}', [kompetensiController::class, 'destroy'])->name('kompetensi.destroy')->middleware('can:delete-kompetensi');
     Route::get('/kompetensi/{kompetensi}/edit', [kompetensiController::class, 'edit'])->name('kompetensi.edit')->middleware('can:edit-kompetensi');
-
+    // MANAGEMENT GURU
+    Route::get('/management/guru', [guruController::class, 'index'])->name('management.guru.index')->middleware('can:view-user');
+    Route::post('/management/guru', [guruController::class, 'store'])->name('management.guru.store')->middleware('can:create-user');
+    Route::get('/management/guru/create', [guruController::class, 'create'])->name('management.guru.create')->middleware('can:create-user');
+    Route::get('/management/guru/{guru}', [guruController::class, 'show'])->name('management.guru.show')->middleware('can:view-user');
+    Route::put('/management/guru/{guru}', [guruController::class, 'update'])->name('management.guru.update')->middleware('can:edit-user');
+    Route::delete('/management/guru/{guru}', [guruController::class, 'destroy'])->name('management.guru.destroy')->middleware('can:delete-user');
+    Route::get('/management/guru/{guru}/edit', [guruController::class, 'edit'])->name('management.guru.edit')->middleware('can:edit-user');
+    // ABSENSI GURU
     Route::get('/absensi/guru', [AbsensiGuruController::class, 'index'])->name('guru.index');
     Route::post('/absensi/guru/store', [AbsensiGuruController::class, 'store'])->name('guru.store');
     Route::get('/absensi/guru/create', [AbsensiGuruController::class, 'create'])->name('guru.create');
     Route::put('/absensi/guru/update', [AbsensiGuruController::class, 'update'])->name('guru.update');
     Route::get('/absensi/guru/edit/', [AbsensiGuruController::class, 'edit'])->name('guru.edit');
-
+    // ABSENSI MURID
     Route::get('/absensi/murid', [AbsensiMuridController::class, 'index'])->name('murid.index');
     Route::post('/absensi/murid/store', [AbsensiMuridController::class, 'store'])->name('murid.store');
     Route::get('/absensi/murid/create', [AbsensiMuridController::class, 'create'])->name('murid.create');

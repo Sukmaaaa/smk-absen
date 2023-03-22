@@ -319,68 +319,58 @@ return [
                 [
                     'text' => 'Guru',
                     'route'  => 'guru.index',
-                    'icon' => 'fas fa-fw fa-chalkboard-teacher'
+                    'icon' => 'fas fa-fw fa-chalkboard-teacher',
+                    'can'   => 'view-kehadiran-guru',
+                ],
+                [
+                    'text'  => 'Murid',
+                    'route' => 'murid.index',
+                    'icon'  => 'fas fa-fw fa-user',
+                    'can'   => 'view-kehadiran-murid',
+                ],
+                ],
+        ],
+        ['header' => 'MANAJEMEN'],
+        [
+            'text'        => 'Kompetensi',
+            'icon'        => 'fas fa-fw fa-book',
+            'route'       => 'kompetensi.index',
+            'can'         => 'view-kompetensi',
+        ],
+        [
+            'text'        => 'Data',
+            'icon'        => 'fas fa-fw fa-database',
+            'can'         => 'view-user',
+            'submenu' => [
+                [
+                    'text' => 'Guru',
+                    'route'  => 'management.guru.index',
+                    'icon' => 'fas fa-fw fa-chalkboard-teacher',
+                    'can'   => 'view-user',
                 ],
                 [
                     'text' => 'Murid',
-                    'url'  => 'guru.index',
                     'icon' => 'fas fa-fw fa-user'
                 ],
                 ],
-        ],
-        ['header' => 'account_settings'],
+        ], 
         [
-            'text' => 'profile',
-            'url'  => 'admin/settings',
-            'icon' => 'fas fa-fw fa-user',
+            'header' => 'PENGATURAN',
+            'can'    =>  'view-permission'
         ],
         [
-            'text' => 'change_password',
-            'url'  => 'admin/settings',
-            'icon' => 'fas fa-fw fa-lock',
-        ],
-        [
-            'text'  => 'Kompetensi',
-            'route' => 'kompetensi.index',
-            'can'   => 'view-kompetensi',
-        ],
-        [
-            'text'    => 'Kehadiran',
-            'icon'    => 'fas fa-fw fa-book-open',
+            'text'        => 'Web',
+            'icon'        => 'fas fa-fw fa-desktop',
+            'can'         => 'view-permission',
             'submenu' => [
                 [
-                    'text' => 'level_one',
-                    'url'  => '#',
+                    'text'   => 'Izin',
+                    'route'  => 'permission.index',
+                    'icon'   => 'fas fa-fw fa-info-circle',
+                    'can'   => 'view-permission',
                 ],
-                [
-                    'text'    => 'level_one',
-                    'url'     => '#',
-                    'submenu' => [
-                        [
-                            'text' => 'level_two',
-                            'url'  => '#',
-                        ],
-                        [
-                            'text'    => 'level_two',
-                            'url'     => '#',
-                            'submenu' => [
-                                [
-                                    'text' => 'level_three',
-                                    'url'  => '#',
-                                ],
-                                [
-                                    'text' => 'level_three',
-                                    'url'  => '#',
-                                ],
-                            ],
-                        ],
-                    ],
+                
                 ],
-                [
-                    'text' => 'level_one',
-                    'url'  => '#',
-                ],
-            ],
         ],
         ['header' => 'labels'],
         [

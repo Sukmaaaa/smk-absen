@@ -69,7 +69,7 @@ class userSeeder extends Seeder
             'kompetensi' => 'Matematika',
             'password' => Hash::make('hehe'),
             'RFID' => '0x39 0x2e 0x6f 0x4a'
-        ]);
+        ])->assignRole('admin');
 
         User::create([
             'NUPTK' => '2',

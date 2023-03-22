@@ -16,9 +16,11 @@ class AbsensiMuridController extends Controller
      */
     public function index()
     {
+        $this->middleware('can:view-kehadiran-murid');
+
         $absensi = absensiMurid::with('murid')->latest()->get();
 
-        return view('absensi.murid.index', compact('absensi'));
+        return view('app.absensi.murid.index', compact('absensi'));
     }
 
      /**
@@ -29,8 +31,9 @@ class AbsensiMuridController extends Controller
     
      public function create()
      {
-         $murids = murid::all();
-         return view('absensi.murid.create', compact('murids'));
+        $this->middleware('can:create-kehadiran-murid');
+        $murids = murid::all();
+        return view('app.absensi.murid.create', compact('murids'));
      }
 
       /**
@@ -40,7 +43,8 @@ class AbsensiMuridController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {       
+    {   
+        $this->middleware('can:crate-kehadiran-murid');
         $rfid = $request->input('rfid_murid');    
         $murid = murid::where('rfid', $rfid)->get()->first();
 
@@ -92,9 +96,13 @@ class AbsensiMuridController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+    // METHOD UNTUK PULANG
     public function edit()
     {
-        return view('absensi.murid.edit');
+        $this->middleware('can:edit-kehadiran-murid');
+        
+        return view('app.absensi.murid.edit');
     }
 
     /**
@@ -107,6 +115,8 @@ class AbsensiMuridController extends Controller
 
     public function update(Request $request)
     {
+        $this->middleware('can:edit-kehadiran-murid');
+
         $rfid = $request->input('rfid_murid');
         $murid = murid::where('rfid', $rfid)->get()->first();
 

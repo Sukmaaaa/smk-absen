@@ -41,6 +41,16 @@ class roleSeeder extends Seeder
         Permission::create(['name' => 'create-kelas']);
         Permission::create(['name' => 'edit-kelas']);
         Permission::create(['name' => 'delete-kelas']);
+        // MEMBUAT PERMISSION MEMBUAT IZIN
+        Permission::create(['name' => 'view-permission']);
+        Permission::create(['name' => 'create-permission']);
+        Permission::create(['name' => 'edit-permission']);
+        Permission::create(['name' => 'delete-permission']);
+        // MEMBUAT PERMISSION MEMBUAT ROLE
+        Permission::create(['name' => 'view-role']);
+        Permission::create(['name' => 'create-role']);
+        Permission::create(['name' => 'edit-role']);
+        Permission::create(['name' => 'delete-role']);
         // MEMBUAT PERMISSION KEHADIRAN GURU
         Permission::create(['name' => 'view-kehadiran-guru']);
         Permission::create(['name' => 'create-kehadiran-guru']);
@@ -88,11 +98,21 @@ class roleSeeder extends Seeder
             'create-jurusan',
             'edit-jurusan',
             'delete-jurusan',
-            // HALAMAN JURUSAN
+            // HALAMAN KELAS
             'view-kelas',
             'create-kelas',
             'edit-kelas',
             'delete-kelas',
+            // HALAMAN PERMISSION
+            'view-permission',
+            'create-permission',
+            'edit-permission',
+            'delete-permission',
+            // HALAMAN ROLE
+            'view-role',
+            'create-role',
+            'edit-role',
+            'delete-role',
             // HALAMAN KEHADIRAN GURU
             'view-kehadiran-guru',
             'create-kehadiran-guru',
@@ -123,11 +143,21 @@ class roleSeeder extends Seeder
             'create-jurusan',
             'edit-jurusan',
             'delete-jurusan',
-            // HALAMAN JURUSAN
+            // HALAMAN KELAS
             'view-kelas',
             'create-kelas',
             'edit-kelas',
             'delete-kelas',
+            // HALAMAN PERMISSION
+            'view-permission',
+            'create-permission',
+            'edit-permission',
+            'delete-permission',
+            // HALAMAN ROLE
+            'view-role',
+            'create-role',
+            'edit-role',
+            'delete-role',
             // HALAMAN KEHADIRAN GURU
             'view-kehadiran-guru',
             'create-kehadiran-guru',

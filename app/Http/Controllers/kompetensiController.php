@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\kompetensi;
+use Session;
 
 class kompetensiController extends Controller
 {
@@ -18,7 +19,7 @@ class kompetensiController extends Controller
 
         $kompetensi = kompetensi::all();
 
-        return view('kompetensi.index', compact('kompetensi'));
+        return view('app.kompetensi.index', compact('kompetensi'));
     }
 
     /**
@@ -30,7 +31,7 @@ class kompetensiController extends Controller
     {
         $this->middleware('can:create-kompetensi');
 
-        return view('kompetensi.create');
+        return view('app.kompetensi.create');
     }
 
     /**
@@ -52,9 +53,11 @@ class kompetensiController extends Controller
         // CEK KOMPETENSI APAKAH SUDAH ADA ATAU BELUM
         $kompetensi = kompetensi::where('namaKompetensi', $request->namaKompetensi)->first();
         if ($kompetensi) {
-            return redirect()->route('kompetensi.index')->with('Kompetensi ini sudah ada');
+            Session::flash('error', 'Data kompetensi ini sudah ada');
+            return redirect()->route('kompetensi.index');
         }
 
+        // SIMPAN DATA
         $kompetensi = new kompetensi();
         $kompetensi->namaKompetensi = $request->namaKompetensi;
         $kompetensi->deskripsi = $request->deskripsi;
@@ -75,7 +78,7 @@ class kompetensiController extends Controller
 
         $kompetensi = kompetensi::findOrFail($id);
 
-        return view('kompetensi.show', compact('kompetensi'));
+        return view('app.kompetensi.show', compact('kompetensi'));
     }
 
     /**
@@ -90,7 +93,7 @@ class kompetensiController extends Controller
 
         $kompetensi = kompetensi::findOrFail($id);
 
-        return view('kompetensi.edit', compact('kompetensi'));
+        return view('app.kompetensi.edit', compact('kompetensi'));
     }
 
     /**
@@ -110,9 +113,11 @@ class kompetensiController extends Controller
             'deskripsi' => 'required',
         ]);
 
+        // CEK APAKAH PERMISSION SUDAH ADA ATAU BELUM KECUALI YANG SEDANG DI EDIT
         $kompetensi = kompetensi::where('namaKompetensi', $request->namaKompetensi)->where('id', '<>', $id)->first();
         if ($kompetensi) {
-            return redirect()->route('kompetensi.index')->with('Kompetensi ini sudah ada');
+            Session::flash('error', 'Data kompetensi ini sudah ada');
+            return redirect()->route('kompetensi.index');
         }
 
         // UPDATE DATA

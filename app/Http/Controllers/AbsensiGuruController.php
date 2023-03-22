@@ -16,9 +16,11 @@ class AbsensiGuruController extends Controller
      */
     public function index()
     {
+        $this->middleware('can:view-kehadiran-guru');
+
         $absensi = absensiGuru::with('user')->latest()->get();
 
-        return view('absensi.guru.index', compact('absensi'));
+        return view('app.absensi.guru.index', compact('absensi'));
     }
 
     /**
@@ -29,10 +31,12 @@ class AbsensiGuruController extends Controller
     
     public function create()
     {
+        $this->middleware('can:create-kehadiran-guru');
+
         $users = User::all(); // AMBIL SEMUA USER
 
         // ALIHKAN KE .. DENGAN DATA
-        return view('absensi.guru.create', compact('users'));
+        return view('app.absensi.guru.create', compact('users'));
     }
 
     /**
@@ -42,7 +46,9 @@ class AbsensiGuruController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {       
+    {   
+        $this->middleware('can:create-kehadiran-guru');
+
         $rfid = $request->input('rfid_guru'); // MENGAMBIL INPUT DARI NAMA ELEMENT rfid_guru  
         $user = User::where('rfid', $rfid)->get()->first(); 
 
@@ -96,7 +102,9 @@ class AbsensiGuruController extends Controller
      */
     public function edit()
     {
-        return view('absensi.guru.edit');
+        $this->middleware('can:edit-kehadiran-guru');
+
+        return view('app.absensi.guru.edit');
     }
 
     /**
@@ -108,6 +116,8 @@ class AbsensiGuruController extends Controller
      */
     public function update(Request $request)
     {
+        $this->middleware('can:edit-kehadiran-guru');
+
         $rfid = $request->input('rfid_guru');    
         $user = User::where('rfid', $rfid)->get()->first();
         
