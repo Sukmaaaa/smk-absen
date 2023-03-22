@@ -340,6 +340,11 @@ return [
             'icon' => 'fas fa-fw fa-lock',
         ],
         [
+            'text'  => 'Kompetensi',
+            'route' => 'kompetensi.index',
+            'can'   => 'view-kompetensi',
+        ],
+        [
             'text'    => 'Kehadiran',
             'icon'    => 'fas fa-fw fa-book-open',
             'submenu' => [
