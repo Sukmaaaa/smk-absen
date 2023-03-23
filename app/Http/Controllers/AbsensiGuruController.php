@@ -49,14 +49,18 @@ class AbsensiGuruController extends Controller
     {   
         $this->middleware('can:create-kehadiran-guru');
 
-        $rfid = $request->input('rfid_guru'); // MENGAMBIL INPUT DARI NAMA ELEMENT rfid_guru  
+        // MENGAMBIL NILAI INPUT DARI rfid_guru
+        $rfid = $request->input('rfid_guru'); 
+
+        // MENGAMBIL DATA USER BERDASARKAN INPUT $rfid 
         $user = User::where('rfid', $rfid)->get()->first(); 
 
-        // KALO USER EXIST
+        // KALO USER GAADA 
         if (!$user) {
             return redirect()->route('guru.create')->with(['error'=> 'RFID tidak ditemukan.']);
         }
 
+        // MENGAMBIL NILAI INPUT inputLocalTime
         $inputLocalTime = $request->input('inputLocalTime');
 
         // CHECK
@@ -71,6 +75,7 @@ class AbsensiGuruController extends Controller
                 return redirect()->route('guru.create')->with(['error'=> 'Anda sudah melakukan absensi hari ini.']);
             }
 
+            // MEMBUAT ABSENSI KEHADIRAN
             $dataAbsen = absensiGuru::create([
                 'user_id' => $user->id,
                 'absen_hadir' => $inputLocalTime
@@ -118,15 +123,28 @@ class AbsensiGuruController extends Controller
     {
         $this->middleware('can:edit-kehadiran-guru');
 
-        $rfid = $request->input('rfid_guru');    
+        // MENGAMBIL INPUT DARI rfid_guru
+        $rfid = $request->input('rfid_guru');
+        
+        // MENGAMBIL DATA GURU BERDASARKAN INPUT $rfid 
         $user = User::where('rfid', $rfid)->get()->first();
         
+        // MENGECEK APAKAH ADA GURU DENGAN RFID TERSEBUT
         if (!User::where('rfid', $rfid)->exists()) {
             return redirect()->route('guru.edit')->with('error', 'RFID tidak ditemukan.');
         }
 
-        $dataAbsensi = absensiGuru::where('user_id', $user->id)->orderByDesc('id')->get()->first();
+        // MENGAMBIL DATA ABSENSI TERAKHIR GURU BERDASARKAN ID HARI INI
+        $dataAbsensi = absensiGuru::where('user_id', $user->id)
+        ->whereDate('created_at', Carbon::today())
+        ->first();
 
+        // MENGECEK APAKAH GURU SUDAH ABSEN HADIR HARI INI?
+        if (empty($dataAbsensi) || is_null($dataAbsensi->absen_hadir)) {
+            return redirect()->route('guru.edit')->with('error', 'Anda belum absen hadir hari ini.');
+        }
+
+        // MEMPERBARUI DATA user_id & absen_pulang
         $dataAbsensi->update([
             'user_id' => $user->id,
             'absen_pulang' => $request->input('inputLocalTimePulang')

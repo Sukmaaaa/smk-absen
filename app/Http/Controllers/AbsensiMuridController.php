@@ -45,14 +45,18 @@ class AbsensiMuridController extends Controller
     public function store(Request $request)
     {   
         $this->middleware('can:crate-kehadiran-murid');
-        $rfid = $request->input('rfid_murid');    
+        // MENGAMBIL NILAI INPUT DARI rfid_murid
+        $rfid = $request->input('rfid_murid');
+        
+        // MENGAMBIL DATA MURID BERDASARKAN INPUT $rfid 
         $murid = murid::where('rfid', $rfid)->get()->first();
 
-        // KALO MURID EXIST
+        // KALO RFID TIDAK ADA
         if (!$murid) {
             return redirect()->route('murid.create')->with(['error'=> 'RFID tidak ditemukan.']);
         }
 
+        // MENGAMBIL NILAI INPUT inputLocalTime 
         $inputLocalTime = $request->input('inputLocalTime');
 
         // CHECK
@@ -66,7 +70,8 @@ class AbsensiMuridController extends Controller
             if ($dataAbsen) {
                 return redirect()->route('murid.create')->with(['error'=> 'Anda sudah melakukan absensi hari ini.']);
             }
-
+            
+            // MEMBUAT ABSENSI KEHADIRAN
             $dataAbsen = absensiMurid::create([
                 'murid_id' => $murid->id,
                 'absen_hadir' => $inputLocalTime
@@ -118,14 +123,25 @@ class AbsensiMuridController extends Controller
         $this->middleware('can:edit-kehadiran-murid');
 
         $rfid = $request->input('rfid_murid');
+        // MENGAMBIL DATA MURID BERDASARKAN INPUT $rfid 
         $murid = murid::where('rfid', $rfid)->get()->first();
 
+        // MENGECEK APAKAH ADA MURID DENGAN RFID TERSEBUT
         if (!murid::where('rfid', $rfid)->exists()) {
             return redirect()->route('murid.edit')->with('error', 'RFID tidak ditemukan.');
         }
 
-        $dataAbsensi = absensiMurid::where('murid_id', $murid->id)->orderByDesc('id')->first();
+        //  MENCARI DATA MURID ABSENSI HARI INI
+        $dataAbsensi = absensiMurid::where('murid_id', $murid->id)
+                            ->whereDate('created_at', Carbon::today())
+                            ->first();
 
+        // MENGECEK APAKAH MURID SUDAH ABSEN HADIR HARI INI
+        if (empty($dataAbsensi) || is_null($dataAbsensi->absen_hadir)) {
+            return redirect()->route('murid.edit')->with('error', 'Anda belum absen hadir hari ini.');
+        }
+
+        // MEMPERBARUI DATA murid_id & absen_pulang
         $dataAbsensi->update([
             'murid_id' => $murid->id,
             'absen_pulang' => $request->input('inputLocalTimePulang')

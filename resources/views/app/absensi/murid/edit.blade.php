@@ -103,7 +103,7 @@
             readData()
             rfid.keyup(() => {
                 
-            $('#responses, #resultFoto, #resultNama, #resultKompentensi, #resultJenisKelamin').html('')
+            $('#responses, #resultFoto, #resultNama, #resultKompetensi, #resultJenisKelamin').html('')
             if (!rfid.val()) return readData()
 
             responses.html('<p class="text-muted">Mencari data...</p>')
@@ -126,6 +126,13 @@
                         resultNama.html("-")
                         resultKompetensi.html("-")
                         resultJenisKelamin.html("-")
+                        
+                        // JIKA PANJANG RFID == 19 MAKA KIRIM OTOMATIS
+                        if (rfid.val().length == 19 && !dataTerkirim) {
+                            dataTerkirim = true;
+                            $('button[type="submit"]').click();
+                        }
+                        
                         return responses.html(res.msg)
                     } else {
                         resultFoto.html(res.foto)

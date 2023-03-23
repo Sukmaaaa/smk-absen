@@ -131,6 +131,13 @@
                         resultNama.html("-")
                         resultKompetensi.html("-")
                         resultJenisKelamin.html("-")
+
+                        // JIKA PANJANG RFID == 19 MAKA KIRIM OTOMATIS
+                        if (rfid.val().length == 19 && !dataTerkirim) {
+                            dataTerkirim = true;
+                            $('button[type="submit"]').click();
+                        }
+                        
                         return responses.html(res.msg)
                     } else {
                         resultFoto.html(res.foto)
