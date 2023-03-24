@@ -369,6 +369,12 @@ return [
                     'icon'   => 'fas fa-fw fa-info-circle',
                     'can'   => 'view-permission',
                 ],
+                [
+                    'text'   => 'Peran',
+                    'route'  => 'role.index',
+                    'icon'   => 'fas fa-fw fa-user-tag',
+                    'can'   => 'view-role',
+                ],
                 
                 ],
         ],

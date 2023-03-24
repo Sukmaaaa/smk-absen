@@ -35,7 +35,7 @@
     ? '<button class="btn btn-xs btn-default text-danger mx-1 shadow" title="Delete" type="submit"><i class="fa fa-lg fa-fw fa-trash"></i></button>'
     : '';
     $btnDetails = '<a class="btn btn-xs btn-default text-teal mx-1 shadow" title="Details" href="'.route('kompetensi.show', $kompetensis->id).'"><i class="fa fa-lg fa-fw fa-eye"></i></a>';
-    $newKompetensi[] = [$i++, $kompetensis->namaKompetensi, '<form onsubmit="return confirm(\'Apa Kah Anda Yakin?\')" class="d-flex justify-content-center" method="POST" action="' . route('kompetensi.destroy', $kompetensis->id) . '">' . csrf_field() . '<input type="hidden" name="_method" value="DELETE"/>' . $btnEdit . $btnDelete . $btnDetails . '</form></nobr>'];
+    $newKompetensi[] = [$i++, $kompetensis->namaKompetensi, '<form onsubmit="return confirm(\'Apakah Anda Yakin?\')" class="d-flex justify-content-center" method="POST" action="' . route('kompetensi.destroy', $kompetensis->id) . '">' . csrf_field() . '<input type="hidden" name="_method" value="DELETE"/>' . $btnEdit . $btnDelete . $btnDetails . '</form></nobr>'];
     }
 
     $config = [

@@ -172,6 +172,8 @@ class roleSeeder extends Seeder
             'view-kehadiran-guru',
             // HALAMAN KEHADIRAN MURID
             'view-kehadiran-murid',
+            'view-role',
+            'view-permission',
         ]);
     }
 }

@@ -9,6 +9,7 @@ use App\Http\Controllers\AbsensiMuridController;
 use App\Http\Controllers\kompetensiController;
 use App\Http\Controllers\guruController;
 use App\Http\Controllers\permissionController;
+use App\Http\Controllers\roleController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -57,6 +58,14 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/permission/{permission}', [permissionController::class, 'update'])->name('permission.update')->middleware('can:edit-permission');
     Route::delete('/permission/{permission}', [permissionController::class, 'destroy'])->name('permission.destroy')->middleware('can:delete-permission');
     Route::get('/permission/{permission}/edit', [permissionController::class, 'edit'])->name('permission.edit')->middleware('can:edit-permission');
+    // ROLE
+    Route::get('/role', [roleController::class, 'index'])->name('role.index')->middleware('can:view-role');
+    Route::post('/role', [roleController::class, 'store'])->name('role.store')->middleware('can:create-role');
+    Route::get('/role/create', [roleController::class, 'create'])->name('role.create')->middleware('can:create-role');
+    Route::get('/role/{role}', [roleController::class, 'show'])->name('role.show')->middleware('can:view-role');
+    Route::put('/role/{role}', [roleController::class, 'update'])->name('role.update')->middleware('can:edit-role');
+    Route::delete('/role/{role}', [roleController::class, 'destroy'])->name('role.destroy')->middleware('can:delete-role');
+    Route::get('/role/{role}/edit', [roleController::class, 'edit'])->name('role.edit')->middleware('can:edit-role');
     // KOMPETENSI
     Route::get('/kompetensi', [kompetensiController::class, 'index'])->name('kompetensi.index')->middleware('can:view-kompetensi');
     Route::post('/kompetensi', [kompetensiController::class, 'store'])->name('kompetensi.store')->middleware('can:create-kompetensi');

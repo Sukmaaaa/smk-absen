@@ -81,7 +81,7 @@ class userSeeder extends Seeder
             'kompetensi' => 'WEB',
             'password' => Hash::make('hehe'),
             'RFID' => '0x39 0x2e 0x6f 0x41'
-        ]);
+        ])->assignRole('user');
 
         User::create([
             'NUPTK' => '3',
