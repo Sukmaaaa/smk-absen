@@ -22,7 +22,7 @@
 @section('content')
 @php
 
-    $heads = ['No.', 'Nama', 'Kompetensi', ['label' => 'Actions', 'no-export' => true, 'width' => 5]];
+    $heads = ['No.', 'Nama', 'RFID', ['label' => 'Actions', 'no-export' => true, 'width' => 5]];
     $i = 1;
     $newGuru = [];
     foreach ($user as $gurus) {
@@ -37,7 +37,7 @@
     ? '<button class="btn btn-xs btn-default text-danger mx-1 shadow" title="Delete" type="submit"><i class="fa fa-lg fa-fw fa-trash"></i></button>'
     : '';
     $btnDetails = '<a class="btn btn-xs btn-default text-teal mx-1 shadow" title="Details" href="'.route('management.guru.show', $gurus->id).'"><i class="fa fa-lg fa-fw fa-eye"></i></a>';
-    $newGuru[] = [$i++, $gurus->name, $gurus->kompetensi, '<form onsubmit="return confirm(\'Apa Kah Anda Yakin?\')" class="d-flex justify-content-center" method="POST" action="' . route('management.guru.destroy', $gurus->id) . '">' . csrf_field() . '<input type="hidden" name="_method" value="DELETE"/>' . $btnEdit . $btnDelete . $btnDetails . '</form></nobr>'];
+    $newGuru[] = [$i++, $gurus->name, $gurus->rfid, '<form onsubmit="return confirm(\'Apa Kah Anda Yakin?\')" class="d-flex justify-content-center" method="POST" action="' . route('management.guru.destroy', $gurus->id) . '">' . csrf_field() . '<input type="hidden" name="_method" value="DELETE"/>' . $btnEdit . $btnDelete . $btnDetails . '</form></nobr>'];
     }
 
     $config = [

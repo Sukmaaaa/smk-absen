@@ -13,4 +13,8 @@ class kompetensi extends Model
         'namaKompetensi',
         'deskripsi',
     ];
+
+    public function userHasKompetensi(){
+        return $this->hasMany(UserHasKompetensi::class);
+    }
 }

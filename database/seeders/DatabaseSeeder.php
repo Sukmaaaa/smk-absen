@@ -14,6 +14,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $this->call(kabupatenKotaSeeder::class);
+        $this->call(kompetensiSeeder::class);
         $this->call(roleSeeder::class);
         $this->call(userSeeder::class);
         // \App\Models\User::factory(10)->create();

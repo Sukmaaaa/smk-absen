@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\User;
+use App\Models\kompetensi;
+use App\Models\userHasKompetensi;
 use App\Models\murid;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
@@ -46,7 +48,6 @@ class userSeeder extends Seeder
         //     ]);
         // }
 
-
         User::create([
             'NUPTK' => '0000000000',
             'name' => 'SMK BPI',
@@ -54,10 +55,14 @@ class userSeeder extends Seeder
             'tempat_lahir' => 'Bandung',
             'tanggal_lahir' => '2000-01-01',
             'jenis_kelamin' => 'laki-laki',
-            'kompetensi' => 'Matematika',
             'password' => Hash::make('SMKBISA'),
             'RFID' => '0000 0000 0000 0000'
         ])->assignRole('super admin');
+
+        userHasKompetensi::create([
+            'user_id' => 1,
+            'kompetensi_id' => 1
+        ]);
 
         User::create([
             'NUPTK' => '1',
@@ -66,7 +71,6 @@ class userSeeder extends Seeder
             'tempat_lahir' => 'Bandung',
             'tanggal_lahir' => '2004-11-29',
             'jenis_kelamin' => 'laki-laki',
-            'kompetensi' => 'Matematika',
             'password' => Hash::make('hehe'),
             'RFID' => '0x39 0x2e 0x6f 0x4a'
         ])->assignRole('admin');
@@ -78,7 +82,6 @@ class userSeeder extends Seeder
             'tempat_lahir' => 'Tonasa',
             'tanggal_lahir' => '2005-12-13',
             'jenis_kelamin' => 'laki-laki',
-            'kompetensi' => 'WEB',
             'password' => Hash::make('hehe'),
             'RFID' => '0x39 0x2e 0x6f 0x41'
         ])->assignRole('user');
@@ -90,7 +93,6 @@ class userSeeder extends Seeder
             'tempat_lahir' => 'Bandung',
             'tanggal_lahir' => '2004-11-23',
             'jenis_kelamin' => 'laki-laki',
-            'kompetensi' => 'Basis Data',
             'password' => Hash::make('hehe'),
             'RFID' => '0x39 0x2e 0x6f 0x5a'
         ]);
@@ -102,7 +104,6 @@ class userSeeder extends Seeder
             'tempat_lahir' => 'Bandung',
             'tanggal_lahir' => '2004-11-20',
             'jenis_kelamin' => 'laki-laki',
-            'kompetensi' => 'Pendidikan Agama Islam',
             'password' => Hash::make('hehe'),
             'RFID' => '0x39 0x2e 0x6f d01x'
         ]);

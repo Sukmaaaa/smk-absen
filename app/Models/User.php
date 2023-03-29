@@ -26,7 +26,6 @@ class User extends Authenticatable
         'tempat_lahir',
         'tanggal_lahir',
         'jenis_kelamin',
-        'kompetensi',
         'password',
         'rfid'
     ];
@@ -49,4 +48,9 @@ class User extends Authenticatable
     protected $casts = [
         // 'email_verified_at' => 'datetime',
     ];
+
+    public function userHasKompetensi()
+    {
+        return $this->hasOne(UserHasKompetensi::class);
+    }
 }

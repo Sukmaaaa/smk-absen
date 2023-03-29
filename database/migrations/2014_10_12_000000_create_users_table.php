@@ -22,8 +22,7 @@ return new class extends Migration
             $table->string('tempat_lahir');
             $table->date('tanggal_lahir');
             $table->string('jenis_kelamin');
-            $table->string('kompetensi');
-            $table->string('password');
+            $table->string('password')->nullable();
             $table->string('rfid')->nullable();
             $table->rememberToken();
             $table->timestamps();
