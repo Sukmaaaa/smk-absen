@@ -8,6 +8,7 @@ use App\Http\Controllers\AbsensiGuruController;
 use App\Http\Controllers\AbsensiMuridController;
 use App\Http\Controllers\kompetensiController;
 use App\Http\Controllers\guruController;
+use App\Http\Controllers\muridController;
 use App\Http\Controllers\jurusanController;
 use App\Http\Controllers\permissionController;
 use App\Http\Controllers\roleController;
@@ -91,6 +92,14 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/management/guru/{guru}', [guruController::class, 'update'])->name('management.guru.update')->middleware('can:edit-user');
     Route::delete('/management/guru/{guru}', [guruController::class, 'destroy'])->name('management.guru.destroy')->middleware('can:delete-user');
     Route::get('/management/guru/{guru}/edit', [guruController::class, 'edit'])->name('management.guru.edit')->middleware('can:edit-user');
+    // MANAGEMENT MURID
+    Route::get('/management/murid', [muridController::class, 'index'])->name('management.murid.index')->middleware('can:view-murid');
+    Route::post('/management/murid', [muridController::class, 'store'])->name('management.murid.store')->middleware('can:create-murid');
+    Route::get('/management/murid/create', [muridController::class, 'create'])->name('management.murid.create')->middleware('can:create-murid');
+    Route::get('/management/murid/{murid}', [muridController::class, 'show'])->name('management.murid.show')->middleware('can:view-murid');
+    Route::put('/management/murid/{murid}', [muridController::class, 'update'])->name('management.murid.update')->middleware('can:edit-murid');
+    Route::delete('/management/murid/{murid}', [muridController::class, 'destroy'])->name('management.murid.destroy')->middleware('can:delete-murid');
+    Route::get('/management/murid/{murid}/edit', [muridController::class, 'edit'])->name('management.murid.edit')->middleware('can:edit-murid');
     // ABSENSI GURU
     Route::get('/absensi/guru', [AbsensiGuruController::class, 'index'])->name('guru.index');
     Route::post('/absensi/guru/store', [AbsensiGuruController::class, 'store'])->name('guru.store');

@@ -348,16 +348,18 @@ return [
             'icon'        => 'fas fa-fw fa-database',
             'can'         => 'view-user',
             'submenu' => [
-                [
-                    'text' => 'Guru',
-                    'route'  => 'management.guru.index',
-                    'icon' => 'fas fa-fw fa-chalkboard-teacher',
-                    'can'   => 'view-user',
-                ],
-                [
-                    'text' => 'Murid',
-                    'icon' => 'fas fa-fw fa-user'
-                ],
+                    [
+                        'text' => 'Guru',
+                        'route'  => 'management.guru.index',
+                        'icon' => 'fas fa-fw fa-chalkboard-teacher',
+                        'can'   => 'view-user',
+                    ],
+                    [
+                        'text'  => 'Murid',
+                        'route' => 'management.murid.index',
+                        'icon'  => 'fas fa-fw fa-user',
+                        'can'   => 'view-murid'
+                    ],
                 ],
         ], 
         [

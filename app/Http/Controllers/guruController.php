@@ -29,12 +29,6 @@ class guruController extends Controller
 
         $user = User::all();
 
-
-        // $userHasKompetensi = userHasKompetensi::where('user_id', $user->id)->first();
-
-        // return dd($userHasKompetensi);
-
-        // return view('app.management.guru.index', compact('user', 'userHasKompetensi'));
         return view('app.management.guru.index', compact('user'));
     }
 
@@ -310,6 +304,6 @@ class guruController extends Controller
         $user = User::findOrFail($id);
         $user->delete();
 
-        return redirect()->route('management.guru.index')->with('success','Data guru berhasil dihapus');
+        return redirect()->route('management.guru.index')->with('success','Data guru berhasil dihapus.');
     }
 }

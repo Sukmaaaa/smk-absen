@@ -15,8 +15,16 @@ return new class extends Migration
     {
         Schema::create('murids', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('rfid')->nullable();
+            $table->bigInteger('NIS');
+            $table->string('foto')->nullable();
+            $table->string('nama');
+            $table->string('tempat_lahir');
+            $table->date('tanggal_lahir');
+            $table->longText('tempat_tinggal')->nullable();
+            $table->string('jenis_kelamin');
+            $table->string('kelas');
+            $table->string('jurusan');
+            $table->string('rfid');
             $table->timestamps();
         });
     }

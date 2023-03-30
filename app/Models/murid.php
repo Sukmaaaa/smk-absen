@@ -10,6 +10,15 @@ class murid extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name', 'rfid'
+        'NIS', 
+        'foto', 
+        'nama', 
+        'tempat_lahir', 
+        'tanggal_lahir', 
+        'tempat_tinggal', 
+        'jenis_kelamin', 
+        'kelas', 
+        'jurusan', 
+        'rfid'
     ];
 }

@@ -204,66 +204,26 @@
         const passwordInput = document.getElementById("password");
         const passwordHint = document.getElementById("passwordHint");
 
-        // KETIKA PASSWORD INPUT DIMASUKKAN VALUE
         passwordInput.addEventListener("input", function() {
-            const passwordValue = passwordInput.value;
-            const regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/; // VALIDASI CAMPURAN ANGKA, HURUF BESAR & KECIL
+        const passwordValue = passwordInput.value;
+        const regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
 
-            if (!regex.test(passwordValue)) {
-                passwordHint.style.display = "block";
-                passwordInput.classList.add("is-invalid");
-            } else {
-                passwordHint.style.display = "none";
-                passwordInput.classList.remove("is-invalid");
-            }
-        });
-
-        // KETIKA DICLICK MAKA PERLIHATKAN PASSWORD HINT
-        passwordInput.addEventListener("click", function() {
+        if (!regex.test(passwordValue)) {
             passwordHint.style.display = "block";
-        });
-
-        // KETIKA BLUR MAKA HAPUS CLASS IS-INVALID
-        passwordInput.addEventListener("blur", function() {
-        if (passwordInput.value === '') {
+            passwordInput.classList.add("is-invalid");
+        } else {
+            passwordHint.style.display = "none";
             passwordInput.classList.remove("is-invalid");
         }
-            passwordHint.style.display = "none";
         });
 
-        // KONFIRMASI PASSWORD
-        const ulangiPassword = document.getElementById('ulangiPassword');
-        const passwordBaru = document.getElementById('password');
-
-        $('#ulangiPasswordLabel, #ulangiPassword').hide();
-
-        // KALO PANJANG ULANGIPASSWORD = 0
-        ulangiPassword.addEventListener('keyup', () => {
-        if (ulangiPassword.value.length > 0) {
-            if (ulangiPassword.value === passwordBaru.value) {
-                ulangiPassword.classList.remove('is-invalid');
-            $('#ulangiPasswordFeedback').hide();
-            } else {
-                ulangiPassword.classList.add('is-invalid');
-                $('#ulangiPasswordFeedback').show();
-            }
-        } else {
-            ulangiPassword.classList.remove('is-invalid');
-            $('#ulangiPasswordFeedback').hide();
-        }
+        passwordInput.addEventListener("click", function() {
+        passwordHint.style.display = "block";
         });
 
-        // KALO FIELD PASSWORD LEBIH DARI 0 MAKA TAMPILKAN
-        passwordBaru.addEventListener('keyup', function() {
-            if (this.value.length > 0) {
-                $('#ulangiPasswordLabel, #ulangiPassword').show();
-            } else {
-                $('#ulangiPasswordLabel, #ulangiPassword, #ulangiPasswordFeedback').hide();
-                ulangiPassword.value = '';
-                ulangiPassword.classList.remove('is-invalid');
-            }
+        passwordInput.addEventListener("blur", function() {
+        passwordHint.style.display = "none";
         });
-
 
         // SWEET ALERT
         const Toast = Swal.mixin({

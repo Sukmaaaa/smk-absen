@@ -7,7 +7,6 @@ use Illuminate\Database\Seeder;
 use App\Models\User;
 use App\Models\kompetensi;
 use App\Models\userHasKompetensi;
-use App\Models\murid;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
 
@@ -106,11 +105,6 @@ class userSeeder extends Seeder
             'jenis_kelamin' => 'laki-laki',
             'password' => Hash::make('hehe'),
             'RFID' => '0x39 0x2e 0x6f d01x'
-        ]);
-
-        murid::create([
-            'name' => 'Anhar',
-            'RFID' => '0x39 0x2e 0x6f xxxx',
         ]);
     }
 }

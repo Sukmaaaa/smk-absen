@@ -1,13 +1,13 @@
 @extends('adminlte::page')
 
-@section('title', 'Detail guru')
+@section('title', 'Detail Murid')
 @section('plugins.DatatablesPlugin', true)
 @section('plugins.Datatables', true)
-@section('dashboard_url', 'Detail Guru')
+@section('dashboard_url', 'Detail Murid')
 
 @section('content_header')
     <div class="d-flex justify-content-between">
-        <h1>Detail Guru</h1>
+        <h1>Detail Murid</h1>
         <span id="tanggal" class="tanggal align-self-center"></span>
     </div>
     
@@ -28,56 +28,56 @@
 
             <!-- FOTO DAN NAMA -->
             <div class="row">
-                <div class="col-md-6"><img src="{{ url('public/images/'.$user->foto) }}" style="max-width: 100%; height: auto;"></div>
-                <div class="col-md-6">{{ $user->name }}</div>
+                <div class="col-md-6"><img src="{{ url('public/images/'.$murid->foto) }}" style="max-width: 100%; height: auto;"></div>
+                <div class="col-md-6">{{ $murid->nama }}</div>
             </div>
             <!-- END FOTO DAN NAMA -->
 
-            <!-- LABEL USERNAME & TEMPAT_LAHIR -->
+            <!-- LABEL TEMPAT LAHIR & TANGGAL LAHIR -->
             <div class="row mt-5">
-                <label class="col-md-6">Username</label>
                 <label class="col-md-6">Tempat Lahir</label>
-            </div>
-            <!-- END LABEL USERNAME & TEMPAT_LAHIR -->
-            
-            <!-- USERNAME & TEMPAT LAHIR -->
-            <div class="row">
-                <div class="col-md-6">{{ $user->username }}</div>
-                <div class="col-md-6">{{ $user->tempat_lahir }}</div>
-            </div>
-            <!-- END USERNAME & TEMPAT LAHIR -->
-
-            <!-- LABEL TANGGAL LAHIR & JENIS KELAMIN -->
-            <div class="row mt-5">
                 <label class="col-md-6">Tanggal Lahir</label>
-                <label class="col-md-6">Jenis Kelamin</label>
             </div>
-            <!-- END LABEL USERNAME & TEMPAT_LAHIR -->
-
-            <!-- TANGGAL LAHIR & JENIS KELAMIN -->
+            <!-- END LABEL TEMPAT LAHIR & TANGGAL LAHIR -->
+            
+            <!-- TEMPAT LAHIR & TANGGAL LAHIR -->
             <div class="row">
-                <div class="col-md-6">{{ $user->tanggal_lahir }}</div>
-                <div class="col-md-6">{{ $user->jenis_kelamin }}</div>
+                <div class="col-md-6">{{ $murid->tempat_lahir }}</div>
+                <div class="col-md-6">{{ $murid->tanggal_lahir }}</div>
             </div>
-            <!-- END TANGGAL LAHIR & JENIS KELAMIN -->
+            <!-- END TEMPAT LAHIR & TANGGAL LAHIR -->
 
-            <!-- LABEL RFID & NUPTK -->
+            <!-- LABEL KELAS & JURUSAN -->
+            <div class="row mt-5">
+                <label class="col-md-6">Kelas</label>
+                <label class="col-md-6">Jurusan</label>
+            </div>
+            <!-- END LABEL KELAS & JURUSAN -->
+
+            <!-- KELAS & JURUSAN -->
+            <div class="row">
+                <div class="col-md-6">{{ $murid->kelas }}</div>
+                <div class="col-md-6">{{ $murid->jurusan }}</div>
+            </div>
+            <!-- END KELAS & JURUSAN -->
+
+            <!-- LABEL RFID & JENIS KELAMIN -->
             <div class="row mt-5">
                 <label class="col-md-6">RFID</label>
-                <label class="col-md-6">NUPTK</label>
+                <label class="col-md-6">Jenis Kelamin</label>
             </div>
-            <!-- END LABEL RFID & NUPTK -->
+            <!-- END LABEL RFID & JENIS KELAMIN -->
 
-            <!-- RFID & NUPTK -->
+            <!-- RFID & JENIS KELAMIN -->
             <div class="row">
-                <div class="col-md-6">{{ $user->rfid }}</div>
-                <div class="col-md-6">{{ $user->NUPTK }}</div>
+                <div class="col-md-6">{{ $murid->rfid }}</div>
+                <div class="col-md-6">{{ $murid->jenis_kelamin }}</div>
             </div>
-            <!-- END RFID & NUPTK -->
+            <!-- END RFID & JENIS KELAMIN -->
 
             <!-- TOMBOL KEMBALI -->
             <div class="row">
-                    <a href="{{ route('guru.index') }}" class="btn btn-primary mt-4 col-md-12">Kembali</a>
+                    <a href="{{ route('murid.index') }}" class="btn btn-primary mt-4 col-md-12">Kembali</a>
             </div>
             <!-- END TOMBOL KEMBALI -->
         </div>

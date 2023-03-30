@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
         $this->call(jurusanSeeder::class);
         $this->call(roleSeeder::class);
         $this->call(userSeeder::class);
+        $this->call(muridSeeder::class);
         // \App\Models\User::factory(10)->create();
     }
 }
