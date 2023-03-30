@@ -313,6 +313,11 @@ return [
         ],
         // MENU
         [
+            'text'        => 'Dashboard',
+            'icon'        => 'fas fa-fw fa-school',
+            'url'         => '/home',
+        ],
+        [
             'text'        => 'Kehadiran',
             'icon'        => 'fas fa-fw fa-book-open',
             'submenu' => [
@@ -385,22 +390,6 @@ return [
                 ],
                 
                 ],
-        ],
-        ['header' => 'labels'],
-        [
-            'text'       => 'important',
-            'icon_color' => 'red',
-            'url'        => '#',
-        ],
-        [
-            'text'       => 'warning',
-            'icon_color' => 'yellow',
-            'url'        => '#',
-        ],
-        [
-            'text'       => 'information',
-            'icon_color' => 'cyan',
-            'url'        => '#',
         ],
     ],
 
