@@ -47,7 +47,7 @@ class kompetensiController extends Controller
         // VALIDASI INPUT
         $request->validate([
             'namaKompetensi' => 'required',
-            'deskripsi' => 'required',
+            'deskripsi' => 'nullable',
         ]);
 
         // CEK KOMPETENSI APAKAH SUDAH ADA ATAU BELUM
@@ -89,7 +89,7 @@ class kompetensiController extends Controller
      */
     public function edit($id)
     {
-        $this->middleware('can:edit-kompetensi');;
+        $this->middleware('can:edit-kompetensi');
 
         $kompetensi = kompetensi::findOrFail($id);
 
@@ -113,7 +113,7 @@ class kompetensiController extends Controller
             'deskripsi' => 'required',
         ]);
 
-        // CEK APAKAH PERMISSION SUDAH ADA ATAU BELUM KECUALI YANG SEDANG DI EDIT
+        // CEK APAKAH KOMPETENSI SUDAH ADA ATAU BELUM KECUALI YANG SEDANG DI EDIT
         $kompetensi = kompetensi::where('namaKompetensi', $request->namaKompetensi)->where('id', '<>', $id)->first();
         if ($kompetensi) {
             Session::flash('error', 'Data kompetensi ini sudah ada');

@@ -196,19 +196,14 @@ class guruController extends Controller
                 $user->update($validatedData);
             
                 // SIMPAN FOTO JIKA ADA
-                // if ($request->hasFile('foto')) {
-                //     Storage::delete('public/images/'.$user->foto);
-                //     $request->file('foto')->store('public/images');
-                //     $user->foto = $request->file('foto')->hashName();
-                // }
-                
-                // TES SIMPAN FOTO JIKA ADA
                 if($request->file('foto')){
                     $file= $request->file('foto');
                     $filename= date('YmdHi').$file->getClientOriginalName();
                     $file-> move(public_path('public/images'), $filename);
                     $user['foto']= $filename;
                 }
+
+                // UPDATE FOTO
                 $user->save();
             
                 // UPDATE ROLE

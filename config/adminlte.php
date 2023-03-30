@@ -332,6 +332,12 @@ return [
         ],
         ['header' => 'MANAJEMEN'],
         [
+            'text'        => 'Jurusan',
+            'icon'        => 'fas fa-fw fa-graduation-cap',
+            'route'       => 'jurusan.index',
+            'can'         => 'view-jurusan',
+        ],
+        [
             'text'        => 'Kompetensi',
             'icon'        => 'fas fa-fw fa-book',
             'route'       => 'kompetensi.index',

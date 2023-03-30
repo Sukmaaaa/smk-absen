@@ -8,6 +8,7 @@ use App\Http\Controllers\AbsensiGuruController;
 use App\Http\Controllers\AbsensiMuridController;
 use App\Http\Controllers\kompetensiController;
 use App\Http\Controllers\guruController;
+use App\Http\Controllers\jurusanController;
 use App\Http\Controllers\permissionController;
 use App\Http\Controllers\roleController;
 /*
@@ -74,6 +75,14 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/kompetensi/{kompetensi}', [kompetensiController::class, 'update'])->name('kompetensi.update')->middleware('can:edit-kompetensi');
     Route::delete('/kompetensi/{kompetensi}', [kompetensiController::class, 'destroy'])->name('kompetensi.destroy')->middleware('can:delete-kompetensi');
     Route::get('/kompetensi/{kompetensi}/edit', [kompetensiController::class, 'edit'])->name('kompetensi.edit')->middleware('can:edit-kompetensi');
+    // JURUSAN
+    Route::get('/jurusan', [jurusanController::class, 'index'])->name('jurusan.index')->middleware('can:view-jurusan');
+    Route::post('/jurusan', [jurusanController::class, 'store'])->name('jurusan.store')->middleware('can:create-jurusan');
+    Route::get('/jurusan/create', [jurusanController::class, 'create'])->name('jurusan.create')->middleware('can:create-jurusan');
+    Route::get('/jurusan/{jurusan}', [jurusanController::class, 'show'])->name('jurusan.show')->middleware('can:view-jurusan');
+    Route::put('/jurusan/{jurusan}', [jurusanController::class, 'update'])->name('jurusan.update')->middleware('can:edit-jurusan');
+    Route::delete('/jurusan/{jurusan}', [jurusanController::class, 'destroy'])->name('jurusan.destroy')->middleware('can:delete-jurusan');
+    Route::get('/jurusan/{jurusan}/edit', [jurusanController::class, 'edit'])->name('jurusan.edit')->middleware('can:edit-jurusan');
     // MANAGEMENT GURU
     Route::get('/management/guru', [guruController::class, 'index'])->name('management.guru.index')->middleware('can:view-user');
     Route::post('/management/guru', [guruController::class, 'store'])->name('management.guru.store')->middleware('can:create-user');

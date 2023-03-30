@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Detail Kompetensi')
+@section('title', 'Detail')
 
 @section('css')
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.3/dist/jquery.min.js"></script>
@@ -8,7 +8,7 @@
 
 @section('content_header')
     <div class="d-flex justify-content-between">
-        <h1>Detail</h1>
+        <h1>Detail Jurusan</h1>
         <span id="tanggal" class="tanggal align-self-center"></span>
     </div>
 
@@ -20,19 +20,19 @@
 @section('content')
         <div class="card">
             <div class="card-body">
-                <!-- NAMA KOMPETENSI -->
-                <label>Nama Kompetensi</label>
-                <div>{{ $kompetensi->namaKompetensi }}</div>
-                <!-- END NAMA KOMPETENSI -->
+                <!-- NAMA JURUSAN -->
+                <label>Nama Jurusan</label>
+                <div>{{ $jurusan->namaJurusan }}</div>
+                <!-- END NAMA JURUSAN -->
 
-                <!-- DESKRIPSI KOMPETENSI -->
+                <!-- DESKRIPSI JURUSAN -->
                 <label class="mt-5">Deskripsi</label>
-                <div>{{ $kompetensi->deskripsi }}</div>
-                <!-- END DESKRIPSI KOMPETENSI -->
+                <div>{{ $jurusan->deskripsi }}</div>
+                <!-- END DESKRIPSI JURUSAN -->
 
                 <!-- TOMBOL KEMBALI -->
                 <div class="row">
-                    <a href="{{ route('kompetensi.index') }}" class="btn btn-primary mt-4 col-md-12">Kembali</a>
+                    <a href="{{ route('jurusan.index') }}" class="btn btn-primary mt-4 col-md-12">Kembali</a>
                 </div>
                 <!-- END TOMBOL KEMBALI -->
             </div>

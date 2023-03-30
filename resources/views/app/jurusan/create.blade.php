@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Tambah Kompetensi')
+@section('title', 'Tambah jurusan')
 
 @section('css')
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.3/dist/jquery.min.js"></script>
@@ -8,7 +8,7 @@
 
 @section('content_header')
     <div class="d-flex justify-content-between">
-        <h1>Tambah Kompetensi</h1>
+        <h1>Tambah jurusan</h1>
         <span id="tanggal" class="tanggal align-self-center"></span>
     </div>
 
@@ -20,33 +20,33 @@
 @section('content')
         <div class="card">
             <div class="card-body">
-                <!-- FORM KOMPETENSI -->
-                <form action="{{ route('kompetensi.store') }}" method="POST">
+                <!-- FORM JURUSAN -->
+                <form action="{{ route('jurusan.store') }}" method="POST">
                     @csrf
                     <div class="form-group">
                         
-                        <!-- NAMA KOMPETENSI -->
-                        <label>Nama Kompetensi</label><span class="fw-bold" style="color:red; font-weight: bold">*</span>
-                        <x-adminlte-input type="text" name="namaKompetensi" placeholder="Matematika" title="Isi nama kompetensi" required>
+                        <!-- NAMA JURUSAN -->
+                        <label>Nama jurusan</label><span class="fw-bold" style="color:red; font-weight: bold">*</span>
+                        <x-adminlte-input type="text" name="namaJurusan" placeholder="RPL" required title="Isi nama jurusan">
                         </x-adminlte-input>
-                        <!-- END NAMA KOMPETENSI -->
+                        <!-- END NAMA JURUSAN -->
 
                         <!-- DESKRIPSI -->
-                        <x-adminlte-textarea name="deskripsi" label="Deskripsi" title="Isi deskripsi jurusan" placeholder="Matematika adalah ilmu yang mempelajari konsep, struktur, dan hubungan antara angka, ruang, besaran, dan pola." rows=5>
+                        <x-adminlte-textarea name="deskripsi" label="Deskripsi" title="Isi deskripsi jurusan" placeholder="RPL adalah jurusan yang berfokus pada pengembangan perangkat lunak atau software. Dalam jurusan RPL murid akan mempelajari dasar-dasar pemrograman, analisis dan desain sistem, manajemen proyek perangkat lunak serta pengujian dan perawatan perangkat lunak." rows=5>
                         </x-adminlte-textarea>
                         <!-- END DESKRIPSI -->
 
                         <!-- TOMBOL SIMPAN & KEMBALI -->
                         <footer class="mt-4">
                             <div class="d-flex flex-row justify-content-between">
-                                <a href="{{ route('kompetensi.index') }}" class="btn btn-default">Kembali</a>
+                                <a href="{{ route('jurusan.index') }}" class="btn btn-default">Kembali</a>
                                 <x-adminlte-button class="btn bg-dark" label="Simpan" type="submit" id="form"></x-adminlte-button>
                             </div>
                         </footer>
                         <!-- END TOMBOL SIMPAN & KEMBALI -->
                     </div>
                 </form>
-                <!-- END FORM KOMPETENSI -->
+                <!-- END FORM JURUSAN -->
 
             </div>
         </div>    
