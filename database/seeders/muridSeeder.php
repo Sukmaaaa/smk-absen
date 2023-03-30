@@ -25,7 +25,7 @@ class muridSeeder extends Seeder
             'jenis_kelamin'     =>  'Laki-laki',
             'kelas'             =>  'XII',
             'jurusan'           =>  'RPL',
-            'rfid'              =>  '0x2e 10wx 1921 0xqkl'
+            'rfid'              =>  '0x2e 10wx 1921 0xql'
         ]);
     }
 }

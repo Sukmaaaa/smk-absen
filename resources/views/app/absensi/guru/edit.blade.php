@@ -141,24 +141,22 @@
                         resultJenisKelamin.html(res.jenis_kelamin)
 
                         // MENAMPILKAN WAKTU LOKAL
-                        const d = new Date()
-                        const valueLocalTime = `${d.getFullYear()}-${
-                        d.getMonth() < 10 ? "0" + d.getMonth() : d.getMonth()
-                        }-${d.getDate() < 10 ? "0" + d.getDate() : d.getDate()} ${
-                        d.getHours() < 10 ? "0" + d.getHours() : d.getHours()
-                        }:${d.getMinutes() < 10 ? "0" + d.getMinutes() : d.getMinutes()}`
+                        const d = new Date();
+                        const year = d.getFullYear();
+                        const month = (d.getMonth() + 1).toString().padStart(2, '0'); // TAMBAHKAN 1 KARENA INDEX BULAN DIMULAI DARI 0, LALU PADLEFT 0 JIKA KURANG DARI 10
+                        const date = d.getDate().toString().padStart(2, '0'); // PEDLEFT 0 JIKA KURANG DARI 10
+                        const hours = d.getHours().toString().padStart(2, '0'); // PADLEFT 0 JIKA KURANG DARI 10
+                        const minutes = d.getMinutes().toString().padStart(2, '0'); // PADLEFT 0 JIKA KURANG DARI 10
+                        const formattedDatetime = `${year}-${month}-${date}T${hours}:${minutes}`;
+                        inputLocalTime.val(formattedDatetime);
 
-                        inputLocalTime.val(valueLocalTime)
-
-                        console.log(valueLocalTime);
+                        // JIKA PANJANG RFID == 19 MAKA KIRIM OTOMATIS
+                        if (rfid.val().length == 19 && !dataTerkirim) {
+                                dataTerkirim = true;
+                                $('button[type="submit"]').click();
+                        }
                     }
 
-                    // JIKA PANJANG RFID == 19 MAKA KIRIM OTOMATIS
-                    if (rfid.val().length == 19 && !dataTerkirim) {
-                            dataTerkirim = true;
-                            $('button[type="submit"]').click();
-                    }
-                
                     // MENGOSONGKAN inputLocalTime VALUE JIKA RESULT ERROR
                     if (res.error) {
                         inputLocalTime.val('')
