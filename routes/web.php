@@ -12,6 +12,11 @@ use App\Http\Controllers\muridController;
 use App\Http\Controllers\jurusanController;
 use App\Http\Controllers\permissionController;
 use App\Http\Controllers\roleController;
+use Illuminate\Support\Facades\DB;
+use App\Models\absensiMurid;
+use App\Models\absensiGuru;
+use Carbon\Carbon;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -49,6 +54,66 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+// GRAFIK MURID
+Route::get('/absensi-terlambat', function () {
+    $year = date('Y'); // TAHUN SEKARANG
+    $month = date('m'); // BULAN SEKARANG
+    $currentWeek = date('W'); // MINGGU SEKARANG
+    $startWeek = max($currentWeek - 4, 1); // MINGGU YANG AKAN DITAMPILKAN
+
+    $muridTerlambat = DB::table('absensi_murids')
+        ->whereRaw('TIME(absen_hadir) >= "06:45:00"')
+        ->whereYear('absen_hadir', $year)
+        ->whereMonth('absen_hadir', $month)
+        ->whereRaw('WEEK(absen_hadir, 1) >= ?', [$startWeek])
+        ->groupBy(DB::raw('WEEK(absen_hadir, 1)'))
+        ->orderBy(DB::raw('WEEK(absen_hadir, 1)'))
+        ->select(DB::raw('WEEK(absen_hadir, 1) as week, COUNT(*) as total'))
+        ->get();
+
+    // MENGISI DATA MINGGU YANG TIDAK MEMILIKI KETERLAMBATAN
+    $data = [];
+    for ($i=$startWeek; $i<=$currentWeek; $i++) {
+        $data[sprintf('Minggu %d', $i)] = 0;
+    }
+    foreach ($muridTerlambat as $item) {
+        $data[sprintf('Minggu %d', $item->week)] = $item->total;
+    }
+
+    return response()->json($data);
+});
+// END GRAFIK MURID
+
+// GRAFIK GURU
+Route::get('/absensi-terlambat-guru', function () {
+    $year = date('Y'); // TAHUN SEKARANG
+    $month = date('m'); // BULAN SEKARANG
+    $currentWeek = date('W'); // MINGGU SEKARANG
+    $startWeek = max($currentWeek - 4, 1); // MINGGU YANG AKAN DITAMPILKAN
+
+    $guruTerlambat = DB::table('absensi_gurus')
+        ->whereRaw('TIME(absen_hadir) >= "06:45:00"')
+        ->whereYear('absen_hadir', $year)
+        ->whereMonth('absen_hadir', $month)
+        ->whereRaw('WEEK(absen_hadir, 1) >= ?', [$startWeek])
+        ->groupBy(DB::raw('WEEK(absen_hadir, 1)'))
+        ->orderBy(DB::raw('WEEK(absen_hadir, 1)'))
+        ->select(DB::raw('WEEK(absen_hadir, 1) as week, COUNT(*) as total'))
+        ->get();
+
+    // MENGISI DATA MINGGU YANG TIDAK MEMILIKI KETERLAMBATAN
+    $data = [];
+    for ($i=$startWeek; $i<=$currentWeek; $i++) {
+        $data[sprintf('Minggu %d', $i)] = 0;
+    }
+    foreach ($guruTerlambat as $item) {
+        $data[sprintf('Minggu %d', $item->week)] = $item->total;
+    }
+
+    return response()->json($data);
+});
+// END GRAFIK GURU
 
 // Route::resource('/absensi/guru', AbsensiGuruController::class);
 Route::middleware(['auth'])->group(function () {
