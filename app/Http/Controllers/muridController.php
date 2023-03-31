@@ -66,11 +66,11 @@ class muridController extends Controller
             'rfid' => 'required',
         ]);
 
-        if (strlen($request->NIS) < 16 && strlen($request->rfid) < 19) {
+        if (strlen($request->NIS) < 10 && strlen($request->rfid) < 19) {
             return redirect()->route('management.murid.create')->with('error', 'Tolong masukkan data yang valid.');
         }
         
-        if (strlen($request->NIS) < 16) {
+        if (strlen($request->NIS) < 10) {
             return redirect()->route('management.murid.create')->with('error', 'NIS harus terdiri dari 16 karakter.');
         } 
 
@@ -170,12 +170,12 @@ class muridController extends Controller
                 'rfid' => 'required',
             ]);
 
-            if (strlen($request->NIS) < 16 && strlen($request->rfid) < 19) {
+            if (strlen($request->NIS) < 10 && strlen($request->rfid) < 19) {
                 return redirect()->route('management.murid.edit', $id)->with('error', 'Tolong masukkan data yang valid.');
-            }
+            } 
             
-            if (strlen($request->NIS) < 16) {
-                return redirect()->route('management.murid.edit', $id)->with('error', 'NIS harus terdiri dari 16 karakter.');
+            if (strlen($request->NIS) < 10) {
+                return redirect()->route('management.murid.edit', $id)->with('error', 'NIS harus terdiri dari 10 karakter.');
             } 
     
             if (strlen($request->rfid) < 19) {

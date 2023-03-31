@@ -29,33 +29,31 @@
                         <input type="text" class="form-control" id="inputRFID" placeholder="0x82 1x2d 21dp 92x1" name="rfid_guru">
                         <div class="mt-2" id="responses"></div>
                         
-                        <!-- LABEL FOTO DAN NAMA -->
+                        <!-- LABEL NAMA & JENIS KELAMIN -->
                         <div class="row mt-4">
-                            <label class="col-md-6">Foto</label>
                             <label class="col-md-6">Nama Guru</label>
-                        </div>
-                        <!-- END LABEL FOTO DAN NAMA -->
-
-                        <!-- HASIL FOTO & NAMA -->
-                        <div class="row">
-                            <div class="col-md-6" id="resultFoto"></div>
-                            <div class="col-md-6" id="resultNama"></div>
-                        </div>
-                        <!-- END HASIL FOTO & NAMA -->
-
-                        <!-- LABEL KOMPETENSI & JENIS KELAMIN -->
-                        <div class="row mt-4">
-                            <label class="col-md-6">Kompetensi</label>
                             <label class="col-md-6">Jenis Kelamin</label>
                         </div>
-                        <!-- END LABEL KOMPETENSI & JENIS KELAMIN -->
+                        <!-- END LABEL NAMA & JENIS KELAMIN -->
 
-                        <!-- HASIL KOMPETENSI -->
-                        <div class="row mb-3">
-                            <div class="col-md-6" id="resultKompetensi"></div>
+                        <!-- HASIL NAMA & JENIS KELAMIN -->
+                        <div class="row">
+                            <div class="col-md-6" id="resultNama"></div>
                             <div class="col-md-6" id="resultJenisKelamin"></div>
                         </div>
-                        <!-- END HASIL KOMPETENSI -->
+                        <!-- END HASIL NAMA & JENIS KELAMIN -->
+
+                        <!-- LABEL TEMPAT LAHIR -->
+                        <div class="row mt-4">
+                            <label class="col-md-6">Tempat Lahir</label>
+                        </div>
+                        <!-- END LABEL TEMPAT LAHIR -->
+
+                        <!-- HASIL TEMPAT LAHIR -->
+                        <div class="row mb-3">
+                            <div class="col-md-6" id="resultTempatLahir"></div>
+                        </div>
+                        <!-- END HASIL TEMPAT LAHIR -->
 
 
                         <!-- LOCAL TIME HADIR -->
@@ -91,10 +89,9 @@
     <script>
         const rfid = $('#inputRFID')
         const responses = $('#responses')
-        const resultFoto = $('#resultFoto')
         const resultNama = $('#resultNama')
-        const resultKompetensi = $('#resultKompetensi')
         const resultJenisKelamin = $('#resultJenisKelamin')
+        const resultTempatLahir = $('#resultTempatLahir')
         const inputLocalTime = $('#inputLocalTime')
         let dataTerkirim = false;
 
@@ -103,7 +100,7 @@
             readData()
             rfid.keyup(() => {
                 
-            $('#responses, #resultFoto, #resultNama, #resultKompentensi, #resultJenisKelamin').html('')
+            $('#responses, #resultNama, #resultKompentensi, #resultJenisKelamin').html('')
             if (!rfid.val()) return readData()
 
             responses.html('<p class="text-muted">Mencari data...</p>')
@@ -122,9 +119,8 @@
 
                     // JIKA DATA TIDAK ADA
                     if (res.error) {
-                        resultFoto.html("-")
                         resultNama.html("-")
-                        resultKompetensi.html("-")
+                        resultTempatLahir.html("-")
                         resultJenisKelamin.html("-")
 
                         // JIKA PANJANG RFID == 19 MAKA KIRIM OTOMATIS
@@ -135,10 +131,9 @@
 
                         return responses.html(res.msg)
                     } else {
-                        resultFoto.html(res.foto)
                         resultNama.html(res.name)
-                        resultKompetensi.html(res.kompetensi)
                         resultJenisKelamin.html(res.jenis_kelamin)
+                        resultTempatLahir.html(res.tempat_lahir)
 
                         // MENAMPILKAN WAKTU LOKAL
                         const d = new Date();
@@ -175,7 +170,7 @@
         // BACA DATA
         function readData() {
             $.get("{{ url('hasil') }}", {}, function (data, status) {
-            $('#resultFoto, #resultNama, #resultKompetensi, #resultJenisKelamin').html('-')
+            $('#resultNama, #resultTempatLahir, #resultJenisKelamin').html('-')
             inputLocalTime.val('')
             })
         }

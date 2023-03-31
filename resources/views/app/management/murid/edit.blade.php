@@ -188,7 +188,6 @@
         }
 
         // FORMAT RFID
-        // FORMAT RFID
         const rfidInput = document.getElementById("rfid");
         const rfidHint = document.getElementById("rfidHint");
 

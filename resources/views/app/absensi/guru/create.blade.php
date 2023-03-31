@@ -33,33 +33,31 @@
                         <div class="mt-2" id="responses"></div>
                         <!-- END RESPON SEARCH -->
 
-                        <!-- LABEL FOTO & NAMA -->
+                        <!-- LABEL NAMA & JENIS KELAMIN-->
                         <div class="row mt-4">
-                            <label class="col-md-6">Foto</label>
                             <label class="col-md-6">Nama Guru</label>
-                        </div>
-                        <!-- END LABEL FOTO & NAMA -->
-
-                        <!-- HASIL FOTO & NAMA -->
-                        <div class="row">
-                            <div class="col-md-6" id="resultFoto"></div>
-                            <div class="col-md-6" id="resultNama"></div>
-                        </div>
-                        <!-- END HASIL FOTO & NAMA -->
-
-                        <!-- LABEL KOMPETENSI & JENIS KELAMIN -->
-                         <div class="row mt-4">
-                            <label class="col-md-6">Kompetensi</label>
                             <label class="col-md-6">Jenis Kelamin</label>
                         </div>
-                        <!-- END LABEL KOMPETENSI & JENIS KELAMIN -->
+                        <!-- END LABEL NAMA & JENIS KELAMIN -->
 
-                        <!-- HASIL KOMPETENSI -->
-                        <div class="row mb-3">
-                            <div class="col-md-6" id="resultKompetensi"></div>
+                        <!-- HASIL NAMA & JENIS KELAMIN -->
+                        <div class="row">
+                            <div class="col-md-6" id="resultNama"></div>
                             <div class="col-md-6" id="resultJenisKelamin"></div>
                         </div>
-                        <!-- END HASIL KOMPETENSI -->
+                        <!-- END HASIL NAMA & JENIS KELAMIN -->
+
+                        <!-- LABEL Tempat LAHIR  -->
+                         <div class="row mt-4">
+                            <label class="col-md-6">Tempat Lahir</label>
+                        </div>
+                        <!-- END LABEL TEMPAT LAHIR  -->
+
+                        <!-- HASIL TEMPAT LAHIR -->
+                        <div class="row mb-3">
+                            <div class="col-md-6" id="resultTempatLahir"></div>
+                        </div>
+                        <!-- END HASIL TEMPAT LAHIR -->
 
                         <!-- LOCAL TIME HADIR -->
                         <input type="datetime-local" id="inputLocalTime" name="inputLocalTime">
@@ -96,9 +94,8 @@
       <script>
         const rfid = $('#inputRFID')
         const responses = $('#responses')
-        const resultFoto = $('#resultFoto')
         const resultNama = $('#resultNama')
-        const resultKompetensi = $('#resultKompetensi')
+        const resultTempatLahir = $('#resultTempatLahir')
         const resultJenisKelamin = $('#resultJenisKelamin')
         const inputLocalTime = $('#inputLocalTime')
         let dataTerkirim = false;
@@ -107,7 +104,7 @@
             readData()
             rfid.keyup(() => {
                 
-            $('#responses, #resultFoto, #resultNama, #resultKompentensi, #resultJenisKelamin').html('')
+            $('#responses, #resultNama, #resultKompentensi, #resultJenisKelamin').html('')
             if (!rfid.val()) return readData()
             responses.html('<p class="text-muted">Mencari data...</p>')
                 $.ajax({
@@ -126,9 +123,8 @@
                     // JIKA DATA TIDAK ADA
 
                     if (res.error) {
-                        resultFoto.html("-")
                         resultNama.html("-")
-                        resultKompetensi.html("-")
+                        resultTempatLahir.html("-")
                         resultJenisKelamin.html("-")
                         
                         // JIKA PANJANG RFID == 19 MAKA KIRIM OTOMATIS
@@ -139,10 +135,9 @@
                         
                         return responses.html(res.msg)
                     } else {
-                        resultFoto.html(res.foto)
                         resultNama.html(res.name)
-                        resultKompetensi.html(res.kompetensi)
                         resultJenisKelamin.html(res.jenis_kelamin)
+                        resultTempatLahir.html(res.tempat_lahir)
                         // MENAMPILKAN WAKTU LOKAL
                         const d = new Date();
                         const year = d.getFullYear();
@@ -175,7 +170,7 @@
         // BACA DATA
         function readData() {
             $.get("{{ url('hasil') }}", {}, function (data, status) {
-            $('#resultFoto, #resultNama, #resultKompetensi, #resultJenisKelamin').html('-')
+            $('#resultNama, #resultTempatLahir, #resultJenisKelamin').html('-')
             inputLocalTime.val('')
             })
         }

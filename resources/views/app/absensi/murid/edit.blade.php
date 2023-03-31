@@ -29,33 +29,33 @@
                         <input type="text" class="form-control" id="inputRFID" placeholder="0x82 1x2d 21dp 92x1" name="rfid_murid">
                         <div class="mt-2" id="responses"></div>
                         
-                        <!-- LABEL FOTO DAN NAMA -->
+                        <!-- LABEL NAMA & JENIS KELAMIN -->
                         <div class="row mt-4">
-                            <label class="col-md-6">Foto</label>
                             <label class="col-md-6">Nama Murid</label>
-                        </div>
-                        <!-- END LABEL FOTO DAN NAMA -->
-
-                        <!-- HASIL FOTO & NAMA -->
-                        <div class="row">
-                            <div class="col-md-6" id="resultFoto"></div>
-                            <div class="col-md-6" id="resultNama"></div>
-                        </div>
-                        <!-- END HASIL FOTO & NAMA -->
-
-                        <!-- LABEL KOMPETENSI & JENIS KELAMIN -->
-                        <div class="row mt-4">
-                            <label class="col-md-6">Kompetensi</label>
                             <label class="col-md-6">Jenis Kelamin</label>
                         </div>
-                        <!-- END LABEL KOMPETENSI & JENIS KELAMIN -->
+                        <!-- END LABEL NAMA & JENIS KELAMIN -->
 
-                        <!-- HASIL KOMPETENSI -->
-                        <div class="row mb-3">
-                            <div class="col-md-6" id="resultKompetensi"></div>
+                        <!-- HASIL NAMA & JENIS KELAMIN -->
+                        <div class="row">
+                            <div class="col-md-6" id="resultNama"></div>
                             <div class="col-md-6" id="resultJenisKelamin"></div>
                         </div>
-                        <!-- END HASIL KOMPETENSI -->
+                        <!-- END HASIL NAMA & JENIS KELAMIN -->
+
+                        <!-- LABEL KELAS & JURUSAN -->
+                        <div class="row mt-4">
+                            <label class="col-md-6">Kelas</label>
+                            <label class="col-md-6">Jurusan</label>
+                        </div>
+                        <!-- END LABEL KELAS & JURUSAN -->
+
+                        <!-- HASIL KELAS & JURUSAN -->
+                        <div class="row mb-3">
+                            <div class="col-md-6" id="resultKelas"></div>
+                            <div class="col-md-6" id="resultJurusan"></div>
+                        </div>
+                        <!-- END HASIL KELAS & JURUSAN -->
 
 
                         <!-- LOCAL TIME HADIR -->
@@ -91,10 +91,10 @@
     <script>
        const rfid = $('#inputRFID')
         const responses = $('#responses')
-        const resultFoto = $('#resultFoto')
-        const resultNama = $('#resultNama')
-        const resultKompetensi = $('#resultKompetensi')
         const resultJenisKelamin = $('#resultJenisKelamin')
+        const resultNama = $('#resultNama')
+        const resultKelas = $('#resultKelas')
+        const resultJurusan = $('#resultJurusan')
         const inputLocalTime = $('#inputLocalTime')
         let dataTerkirim = false;
 
@@ -103,7 +103,7 @@
             readData()
             rfid.keyup(() => {
                 
-            $('#responses, #resultFoto, #resultNama, #resultKompentensi, #resultJenisKelamin').html('')
+            $('#responses, #resultJenisKelamin, #resultNama, #resultKompentensi, #resultJurusan').html('')
             if (!rfid.val()) return readData()
 
             responses.html('<p class="text-muted">Mencari data...</p>')
@@ -122,10 +122,10 @@
 
                     // JIKA DATA TIDAK ADA
                     if (res.error) {
-                        resultFoto.html("-")
                         resultNama.html("-")
-                        resultKompetensi.html("-")
                         resultJenisKelamin.html("-")
+                        resultKelas.html("-")
+                        resultJurusan.html("-")
 
                         // JIKA PANJANG RFID == 19 MAKA KIRIM OTOMATIS
                         if (rfid.val().length == 19 && !dataTerkirim) {
@@ -135,10 +135,10 @@
                         
                         return responses.html(res.msg)
                     } else {
-                        resultFoto.html(res.foto)
                         resultNama.html(res.nama)
-                        resultKompetensi.html(res.kompetensi)
                         resultJenisKelamin.html(res.jenis_kelamin)
+                        resultKelas.html(res.kelas)
+                        resultJurusan.html(res.jurusan)
 
                         // MENAMPILKAN WAKTU LOKAL
                         const d = new Date();
@@ -174,7 +174,7 @@
         // BACA DATA
         function readData() {
             $.get("{{ url('hasil/murid') }}", {}, function (data, status) {
-            $('#resultFoto, #resultNama, #resultKompetensi, #resultJenisKelamin').html('-')
+            $('#resultJenisKelamin, #resultNama, #resultKelas, #resultJurusan').html('-')
             inputLocalTime.val('')
             })
         }
