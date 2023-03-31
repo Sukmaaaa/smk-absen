@@ -372,6 +372,11 @@ return [
             'can'    =>  'view-permission'
         ],
         [
+            'text'  => 'Profil',
+            'route' => 'profil.index',
+            'icon'  => 'fas fa-fw fa-address-card',
+        ],
+        [
             'text'        => 'Web',
             'icon'        => 'fas fa-fw fa-desktop',
             'can'         => 'view-permission',
@@ -455,16 +460,16 @@ return [
             ],
         ],
         'Select2' => [
-            'active' => false,
+            'active' => true,
             'files' => [
                 [
                     'type' => 'js',
-                    'asset' => false,
+                    'asset' => true,
                     'location' => '//cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js',
                 ],
                 [
                     'type' => 'css',
-                    'asset' => false,
+                    'asset' => true,
                     'location' => '//cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.css',
                 ],
             ],

@@ -48,7 +48,7 @@
 
                             <div class="col-md-6">
                                 <label>NUPTK</label><span class="fw-bold" style="color:red; font-weight: bold">*</span>
-                                <x-adminlte-input type="number" id="nuptkInput" name="NUPTK" placeholder="1111 2222 3333 1" pattern="[0-9]{16}" maxlength="16" title="Isi NUPTK (16 digit)" oninput="limitInputLength(this)" required></x-adminlte-input>
+                                <x-adminlte-input type="number" id="nuptkInput" name="NUPTK" placeholder="1111 2222 3333 1" pattern="[0-9]{16}" value="{{ old('NUPTK', $user->NUPTK) }}" maxlength="16" title="Isi NUPTK (16 digit)" oninput="limitInputLength(this)" required></x-adminlte-input>
                                 <p id="nuptkHint" class="invalid-feedback">NUPTK harus terdiri dari 16 karakter</p>
                             </div>
                         </div>
@@ -123,7 +123,7 @@
 
                             <div class="col-md-6">
                                 <label>RFID</label><span class="fw-bold" style="color:red; font-weight: bold">*</span>
-                                <x-adminlte-input type="text" name="rfid" id="rfid" placeholder="0x82 1x2d 21dp 92x1" maxlength="19" title="Isi rfid" required></x-adminlte-input>
+                                <x-adminlte-input type="text" name="rfid" id="rfid" placeholder="0x82 1x2d 21dp 92x1" maxlength="19" title="Isi rfid" value="{{ old('rfid', $user->rfid) }}" required></x-adminlte-input>
                                 <p id="rfidHint" class="invalid-feedback">Panjang RFID harus terdiri dari 19 karakter</p>
                             </div>
                         </div>
