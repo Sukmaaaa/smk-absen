@@ -73,6 +73,19 @@ class guruController extends Controller
             'password' => 'required|min:8|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/',
         ]);
         
+        if (strlen($request->NUPTK) < 16 && strlen($request->rfid) < 19) {
+            return redirect()->route('management.guru.create')->with('error', 'Tolong masukkan data yang valid.');
+        }
+        
+        if (strlen($request->NUPTK) < 16) {
+            return redirect()->route('management.guru.create')->with('error', 'NUPTK harus terdiri dari 16 karakter.');
+        } 
+
+        if (strlen($request->rfid) < 19) {
+            return redirect()->route('management.guru.create')->with('error', 'RFID harus terdiri dari 19 karakter.');
+        }
+
+        
         // MENGAMBIL INPUT PASSWORD LALU DIHASH
         $validatedData['password'] = Hash::make($request->input('password'));
 
@@ -185,6 +198,18 @@ class guruController extends Controller
                     'rfid' => 'required',
                 ]); 
                     
+                if (strlen($request->NUPTK) < 16 && strlen($request->rfid) < 19) {
+                    return redirect()->route('management.guru.edit', $id)->with('error', 'Tolong masukkan data yang valid.');
+                }
+
+                if (strlen($request->NUPTK) < 16) {
+                    return redirect()->route('management.guru.edit', $id)->with('error', 'NUPTK harus terdiri dari 16 karakter.');
+                } 
+        
+                if (strlen($request->rfid) < 19) {
+                    return redirect()->route('management.guru.edit', $id)->with('error', 'RFID harus terdiri dari 19 karakter.');
+                }
+        
                 // UPDATE DATA KE DATABASE
                 $user = User::findOrFail($id);
                 $user->update($validatedData);
@@ -240,7 +265,18 @@ class guruController extends Controller
                     'rfid' => 'required',
                     'password' => 'nullable|min:8|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/',
                 ]); 
+
+                if (strlen($request->NUPTK) < 16 && strlen($request->rfid) < 19) {
+                    return redirect()->route('management.guru.edit', $id)->with('error', 'Tolong masukkan data yang valid.');
+                }
                     
+                if (strlen($request->NUPTK) < 16) {
+                    return redirect()->route('management.guru.edit', $id)->with('error', 'NUPTK harus terdiri dari 16 karakter');
+                }
+
+                if (strlen($request->rfid) < 19) {
+                    return redirect()->route('management.guru.edit', $id)->with('error', 'RFID harus terdiri dari 19 karakter');
+                }
 
                 if ($request->password != $request->password_baru) {
                     return redirect()->route('management.guru.edit', $id)->with('error', 'Password baru tidak cocok.');

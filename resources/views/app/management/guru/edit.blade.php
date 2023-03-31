@@ -48,7 +48,8 @@
 
                             <div class="col-md-6">
                                 <label>NUPTK</label><span class="fw-bold" style="color:red; font-weight: bold">*</span>
-                                <x-adminlte-input type="text" name="NUPTK" placeholder="1111 2222 3333 1" title="Isi NUPTK" required value="{{ old('NUPTK', $user->NUPTK) }}"></x-adminlte-input>
+                                <x-adminlte-input type="number" id="nuptkInput" name="NUPTK" placeholder="1111 2222 3333 1" pattern="[0-9]{16}" maxlength="16" title="Isi NUPTK (16 digit)" oninput="limitInputLength(this)" required></x-adminlte-input>
+                                <p id="nuptkHint" class="invalid-feedback">NUPTK harus terdiri dari 16 karakter</p>
                             </div>
                         </div>
                         <!-- END FIELD FOTO & NUPTK -->
@@ -122,7 +123,8 @@
 
                             <div class="col-md-6">
                                 <label>RFID</label><span class="fw-bold" style="color:red; font-weight: bold">*</span>
-                                <x-adminlte-input type="text" name="rfid" id="rfid" placeholder="0x82 1x2d 21dp 92x1" maxlength="19" title="Isi rfid" required value="{{ old('rfid', $user->rfid) }}"></x-adminlte-input>
+                                <x-adminlte-input type="text" name="rfid" id="rfid" placeholder="0x82 1x2d 21dp 92x1" maxlength="19" title="Isi rfid" required></x-adminlte-input>
+                                <p id="rfidHint" class="invalid-feedback">Panjang RFID harus terdiri dari 19 karakter</p>
                             </div>
                         </div>
                         <!-- END FIELD PASSWORD & RFID -->
@@ -190,23 +192,52 @@
             $('.select2').select2();
         });
 
+        // LIMIT INPUT NUPTK
+        function limitInputLength(input) {
+            if (input.value.length > input.maxLength) {
+                input.value = input.value.slice(0, input.maxLength);
+            }
+        }
+
         // FORMAT RFID
         const rfidInput = document.getElementById("rfid");
+        const rfidHint = document.getElementById("rfidHint");
 
         rfidInput.addEventListener("input", function(e) {
             let value = e.target.value.replace(/\s/g, ""); // MENGHAPUS SPASI
             value = value.match(/.{1,4}/g).join(" "); // MENAMBAH SPASI SETIAP 4 KARAKTER
             e.target.value = value;
             console.log(value.length);
+
+            if (value.length < 19) {
+                rfidHint.style.display = "block";
+                rfidInput.classList.add("is-invalid");
+            } else {
+                rfidHint.style.display = "none";
+                rfidInput.classList.remove("is-invalid");
+            }
+        });
+
+        rfidInput.addEventListener("click", function() {
+            if (rfidInput.value.length < 19) {
+                rfidHint.style.display = "block";
+                rfidInput.classList.add("is-invalid");
+            } else {
+                rfidHint.style.display = "none";
+            }
+        });
+
+        rfidInput.addEventListener("blur", function() {
+            rfidHint.style.display = "none";
         });
 
         // PASSWORD
         const passwordInput = document.getElementById("password");
         const passwordHint = document.getElementById("passwordHint");
+        const regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
 
         passwordInput.addEventListener("input", function() {
         const passwordValue = passwordInput.value;
-        const regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
 
         if (!regex.test(passwordValue)) {
             passwordHint.style.display = "block";
@@ -218,11 +249,100 @@
         });
 
         passwordInput.addEventListener("click", function() {
-        passwordHint.style.display = "block";
+            const passwordValue = passwordInput.value; 
+            if (!regex.test(passwordValue)) {
+                passwordHint.style.display = "block";
+                passwordInput.classList.add("is-invalid");
+            } else {
+                passwordHint.style.display = "none";
+            }
         });
 
         passwordInput.addEventListener("blur", function() {
-        passwordHint.style.display = "none";
+            const passwordValue = passwordInput.value; 
+
+            if (!regex.test(passwordValue)) {
+                passwordHint.style.display = "none";
+                passwordInput.classList.add("is-invalid");
+            } else {
+                passwordHint.style.display = "none";
+                passwordInput.classList.remove("is-invalid");
+            }
+        });
+
+        // KONFIRMASI PASSWORD
+        const ulangiPassword = document.getElementById('ulangiPassword');
+        const passwordBaru = document.getElementById('password');
+        const ulangiPasswordFeedback = document.getElementById('ulangiPasswordFeedback');
+
+        $('#ulangiPasswordLabel, #ulangiPassword').hide();
+        // KALO PANJANG ULANGIPASSWORD = 0
+        ulangiPassword.addEventListener('keyup', () => {
+        if (ulangiPassword.value.length > 0) {
+            if (ulangiPassword.value === passwordBaru.value) {
+                ulangiPassword.classList.remove('is-invalid');
+                $('#ulangiPasswordFeedback').hide();
+            } else {
+                ulangiPassword.classList.add('is-invalid');
+                $('#ulangiPasswordFeedback').show();
+            }
+        } else {
+            ulangiPassword.classList.remove('is-invalid');
+            $('#ulangiPasswordFeedback').hide();
+        }
+        });
+        // KALO FIELD PASSWORD LEBIH DARI 0 MAKA TAMPILKAN
+        passwordBaru.addEventListener('keyup', function() {
+            if (this.value.length > 0) {
+                $('#ulangiPasswordLabel, #ulangiPassword').show();
+            } else {
+                $('#ulangiPasswordLabel, #ulangiPassword, #ulangiPasswordFeedback').hide();
+                ulangiPassword.value = '';
+                ulangiPassword.classList.remove('is-invalid');
+            }
+        });
+
+        ulangiPassword.addEventListener("click", function() {
+            if (ulangiPassword.value != passwordBaru.value) {
+                ulangiPasswordFeedback.style.display = "block";
+                ulangiPassword.classList.add('is-invalid');
+            } else {
+                ulangiPasswordFeedback.style.display = "none";
+                ulangiPassword.classList.remove('is-invalid');
+            }
+            
+        })
+
+        ulangiPassword.addEventListener("blur", function() {
+            ulangiPasswordFeedback.style.display = "none";
+        })
+        
+        // NUPTK
+        const nuptkInput = document.getElementById("nuptkInput");
+        const nuptkHint = document.getElementById("nuptkHint")
+
+        nuptkInput.addEventListener("input", function() {
+            // console.log(nuptkInput.value.length);
+            if (nuptkInput.value.length < 16) {
+                nuptkHint.style.display = "block";
+                nuptkInput.classList.add("is-invalid");
+            } else {
+                nuptkHint.style.display = "none";
+                nuptkInput.classList.remove("is-invalid");
+            }
+        });
+
+        nuptkInput.addEventListener("click", function() {
+            if (nuptkInput.value.length < 16) {
+                nuptkHint.style.display = "block";
+                nuptkInput.classList.add("is-invalid");
+            } else {
+                nuptkHint.style.display = "none";
+            }
+        });
+
+        nuptkInput.addEventListener("blur", function() {
+            nuptkHint.style.display = "none"; 
         });
 
         // SWEET ALERT

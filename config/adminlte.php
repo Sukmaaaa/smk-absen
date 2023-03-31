@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'title' => 'AdminLTE 3',
+    'title' => 'Absensi',
     'title_prefix' => '',
     'title_postfix' => '',
 
@@ -63,7 +63,7 @@ return [
     |
     */
 
-    'logo' => '<b>Admin</b>LTE',
+    'logo' => '<b>Absensi</b> Oke',
     'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
@@ -322,10 +322,10 @@ return [
             'icon'        => 'fas fa-fw fa-book-open',
             'submenu' => [
                 [
-                    'text' => 'Guru',
+                    'text'   => 'Guru',
                     'route'  => 'guru.index',
-                    'icon' => 'fas fa-fw fa-chalkboard-teacher',
-                    'can'   => 'view-kehadiran-guru',
+                    'icon'   => 'fas fa-fw fa-chalkboard-teacher',
+                    'can'    => 'view-kehadiran-guru',
                 ],
                 [
                     'text'  => 'Murid',
@@ -354,9 +354,9 @@ return [
             'can'         => 'view-user',
             'submenu' => [
                     [
-                        'text' => 'Guru',
-                        'route'  => 'management.guru.index',
-                        'icon' => 'fas fa-fw fa-chalkboard-teacher',
+                        'text'  => 'Guru',
+                        'route' => 'management.guru.index',
+                        'icon'  => 'fas fa-fw fa-chalkboard-teacher',
                         'can'   => 'view-user',
                     ],
                     [
@@ -380,17 +380,23 @@ return [
                     'text'   => 'Izin',
                     'route'  => 'permission.index',
                     'icon'   => 'fas fa-fw fa-info-circle',
-                    'can'   => 'view-permission',
+                    'can'    => 'view-permission',
                 ],
                 [
                     'text'   => 'Peran',
                     'route'  => 'role.index',
                     'icon'   => 'fas fa-fw fa-user-tag',
-                    'can'   => 'view-role',
+                    'can'    => 'view-role',
                 ],
                 
                 ],
         ],
+        [
+            'text'  => 'Audit',
+            'route' => 'audit.index',
+            'icon'  => 'fas fa-fw fa-scroll',
+            'can'   => 'view-audit'
+        ]
     ],
 
     /*

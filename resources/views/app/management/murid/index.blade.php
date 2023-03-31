@@ -63,10 +63,6 @@
 
 @stop
 
-@section('css')
-    <link rel="stylesheet" href="/css/admin_custom.css">
-@stop
-
 @section('js')
     <script type="text/javascript" src="{{ URL::asset('js/localTime.js') }}"></script>
     <script type="text/javascript" src="{{ URL::asset('js/tanggal.js') }}"></script>

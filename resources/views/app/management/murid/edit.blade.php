@@ -47,8 +47,9 @@
                             </x-adminlte-input-file>
 
                             <div class="col-md-6">
-                                <label>NUPTK</label><span class="fw-bold" style="color:red; font-weight: bold">*</span>
-                                <x-adminlte-input type="number" name="NIS" placeholder="1111222200" title="Isi NIS" maxlength="10" value="{{ old('NIS', $murid->NIS) }}" required></x-adminlte-input>
+                                <label>NIS</label><span class="fw-bold" style="color:red; font-weight: bold">*</span>
+                                <x-adminlte-input type="number" id="nisInput" name="NIS" placeholder="1111222200" title="Isi NIS" maxlength="10" value="{{ old('NIS', $murid->NIS) }}" pattern="[0-9]{10}" maxlength="10" oninput="limitInputLength(this)" required></x-adminlte-input>
+                                <p id="nisHint" class="invalid-feedback">NIS harus terdiri dari 10 karakter</p>
                             </div>
                         </div>
                         <!-- END FIELD FOTO & NIS -->
@@ -127,6 +128,7 @@
                             <div class="col-md-6">
                                 <label>RFID</label><span class="fw-bold" style="color:red; font-weight: bold">*</span>
                                 <x-adminlte-input type="text" name="rfid" id="rfid" placeholder="0x82 1x2d 21dp 92x1" maxlength="19" title="Isi rfid" required value="{{ old('rfid', $murid->rfid) }}"></x-adminlte-input>
+                                <p id="rfidHint" class="invalid-feedback">Panjang RFID harus 19 karakter</p>
                             </div>
                         </div>
                         <!-- END FIELD RFID -->
@@ -178,14 +180,73 @@
             $('.select2').select2();
         });
 
+        // LIMIT INPUT NIS
+        function limitInputLength(input) {
+            if (input.value.length > input.maxLength) {
+                input.value = input.value.slice(0, input.maxLength);
+            }
+        }
+
+        // FORMAT RFID
         // FORMAT RFID
         const rfidInput = document.getElementById("rfid");
+        const rfidHint = document.getElementById("rfidHint");
 
         rfidInput.addEventListener("input", function(e) {
             let value = e.target.value.replace(/\s/g, ""); // MENGHAPUS SPASI
             value = value.match(/.{1,4}/g).join(" "); // MENAMBAH SPASI SETIAP 4 KARAKTER
             e.target.value = value;
             console.log(value.length);
+
+            if (value.length < 19) {
+                rfidHint.style.display = "block";
+                rfidInput.classList.add("is-invalid");
+            } else {
+                rfidHint.style.display = "none";
+                rfidInput.classList.remove("is-invalid");
+            }
+        });
+
+        rfidInput.addEventListener("click", function() {
+            if (rfidInput.value.length < 19) {
+                rfidHint.style.display = "block";
+                rfidInput.classList.add("is-invalid");
+            } else {
+                rfidHint.style.display = "none";
+            }
+        });
+
+        rfidInput.addEventListener("blur", function() {
+            rfidHint.style.display = "none";
+        });
+
+        // NUPTK
+        const nisInput = document.getElementById("nisInput");
+        const nisHint = document.getElementById("nisHint")
+        
+        nisInput.addEventListener("input", function() {
+            console.log(nisInput.value.length);
+            if (nisInput.value.length < 10) {
+                nisHint.style.display = "block";
+                nisInput.classList.add("is-invalid");
+            } else {
+                nisHint.style.display = "none";
+                nisInput.classList.remove("is-invalid");
+            }
+        });
+
+        nisInput.addEventListener("click", function() {
+            if (nisInput.value.length < 10) {
+                nisHint.style.display = "block";
+                nisInput.classList.add("is-invalid");
+            } else {
+                nisHint.style.display = "none";
+                nisInput.classList.remove("is-invalid");
+            }
+        });
+
+        nisInput.addEventListener("blur", function() {
+            nisHint.style.display = "none"; 
         });
 
         // SWEET ALERT

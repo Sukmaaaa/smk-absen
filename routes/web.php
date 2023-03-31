@@ -12,6 +12,7 @@ use App\Http\Controllers\muridController;
 use App\Http\Controllers\jurusanController;
 use App\Http\Controllers\permissionController;
 use App\Http\Controllers\roleController;
+use App\Http\Controllers\auditController;
 use Illuminate\Support\Facades\DB;
 use App\Models\absensiMurid;
 use App\Models\absensiGuru;
@@ -177,7 +178,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/absensi/murid/create', [AbsensiMuridController::class, 'create'])->name('murid.create');
     Route::put('/absensi/murid/update', [AbsensiMuridController::class, 'update'])->name('murid.update');
     Route::get('/absensi/murid/edit/', [AbsensiMuridController::class, 'edit'])->name('murid.edit');
-
-
+    // AUDIT
+    Route::get('/audit', [auditController::class, 'index'])->name('audit.index');
+    Route::get('/audit/{audit}', [auditController::class, 'show'])->name('audit.show');
 });
 

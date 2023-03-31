@@ -12,9 +12,11 @@
     </div>
     
     <div class="d-flex justify-content-between mx-1 mt-3">
+        @if (auth()->user()->can('create-role'))
         <div>
             <a href="{{ route('role.create') }}" class="btn bg-dark">Tambah Peran</a>
         </div>
+        @endif
         <span id="time" class="jam align-self-center"></span>
     </div>
 @stop

@@ -47,7 +47,8 @@
 
                             <div class="col-md-6">
                                 <label>NUPTK</label><span class="fw-bold" style="color:red; font-weight: bold">*</span>
-                                <x-adminlte-input type="text" name="NUPTK" placeholder="1111 2222 3333 1" title="Isi NUPTK" required></x-adminlte-input>
+                                <x-adminlte-input type="number" id="nuptkInput" name="NUPTK" placeholder="1111 2222 3333 1" pattern="[0-9]{16}" maxlength="16" title="Isi NUPTK (16 digit)" oninput="limitInputLength(this)" required></x-adminlte-input>
+                                <p id="nuptkHint" class="invalid-feedback">NUPTK harus terdiri dari 16 karakter</p>
                             </div>
                         </div>
                         <!-- END FIELD FOTO & NUPTK -->
@@ -118,6 +119,7 @@
                             <div class="col-md-6">
                                 <label>RFID</label><span class="fw-bold" style="color:red; font-weight: bold">*</span>
                                 <x-adminlte-input type="text" name="rfid" id="rfid" placeholder="0x82 1x2d 21dp 92x1" maxlength="19" title="Isi rfid" required></x-adminlte-input>
+                                <p id="rfidHint" class="invalid-feedback">RFID harus 19 karakter</p>
                             </div>
                         </div>
                         <!-- END FIELD PASSWORD & RFID -->
@@ -156,6 +158,7 @@
     <script type="text/javascript" src="{{ URL::asset('js/localTime.js') }}"></script>
     <script type="text/javascript" src="{{ URL::asset('js/tanggal.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         $(document).ready(function() {
             $('.select2').select2();
@@ -182,39 +185,138 @@
             $('.select2').select2();
         });
 
+        // LIMIT INPUT NUPTK
+        function limitInputLength(input) {
+            if (input.value.length > input.maxLength) {
+                input.value = input.value.slice(0, input.maxLength);
+            }
+        }
         // FORMAT RFID
         const rfidInput = document.getElementById("rfid");
+        const rfidHint = document.getElementById("rfidHint");
 
         rfidInput.addEventListener("input", function(e) {
             let value = e.target.value.replace(/\s/g, ""); // MENGHAPUS SPASI
             value = value.match(/.{1,4}/g).join(" "); // MENAMBAH SPASI SETIAP 4 KARAKTER
             e.target.value = value;
             console.log(value.length);
+
+            if (value.length < 19) {
+                rfidHint.style.display = "block";
+                rfidInput.classList.add("is-invalid");
+            } else {
+                rfidHint.style.display = "none";
+                rfidInput.classList.remove("is-invalid");
+            }
+        });
+
+        rfidInput.addEventListener("click", function() {
+            if (rfidInput.value.length < 19) {
+                rfidHint.style.display = "block";
+                rfidInput.classList.add("is-invalid");
+            } else {
+                rfidHint.style.display = "none";
+            }
+        });
+
+        rfidInput.addEventListener("blur", function() {
+            rfidHint.style.display = "none";
         });
 
         // PASSWORD
         const passwordInput = document.getElementById("password");
         const passwordHint = document.getElementById("passwordHint");
-
-        passwordInput.addEventListener("input", function() {
         const passwordValue = passwordInput.value;
         const regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+        
+        
+        passwordInput.addEventListener("input", function() {
+            const passwordValue = passwordInput.value; 
+            console.log(!regex.test(passwordValue));
 
-        if (!regex.test(passwordValue)) {
-            passwordHint.style.display = "block";
-            passwordInput.classList.add("is-invalid");
-        } else {
-            passwordHint.style.display = "none";
-            passwordInput.classList.remove("is-invalid");
-        }
+            if (!regex.test(passwordValue)) { // JIKA INPUT PASSWORD TIDAK MEMENUHI KONDISI
+                console.log("ancrit");
+                passwordHint.style.display = "block";
+                passwordInput.classList.add("is-invalid");
+            } else {
+                passwordHint.style.display = "none";
+                passwordInput.classList.remove("is-invalid");
+            }
         });
 
         passwordInput.addEventListener("click", function() {
-        passwordHint.style.display = "block";
+            const passwordValue = passwordInput.value; 
+            if (!regex.test(passwordValue)) {
+                passwordHint.style.display = "block";
+                passwordInput.classList.add("is-invalid");
+            } else {
+                passwordHint.style.display = "none";
+            }
         });
 
         passwordInput.addEventListener("blur", function() {
-        passwordHint.style.display = "none";
+            const passwordValue = passwordInput.value; 
+            
+            if (!regex.test(passwordValue)) {
+                passwordHint.style.display = "none";
+                passwordInput.classList.add("is-invalid");
+            } else {
+                passwordHint.style.display = "none";
+                passwordInput.classList.remove("is-invalid");
+            }
         });
+
+        // NUPTK
+        const nuptkInput = document.getElementById("nuptkInput");
+        const nuptkHint = document.getElementById("nuptkHint")
+
+        nuptkInput.addEventListener("input", function() {
+            console.log(nuptkInput.value.length);
+            if (nuptkInput.value.length < 16) {
+                nuptkHint.style.display = "block";
+                nuptkInput.classList.add("is-invalid");
+            } else {
+                nuptkInput.classList.remove("is-invalid");
+                nuptkHint.style.display = "none";
+            }
+        });
+
+        nuptkInput.addEventListener("click", function() {
+            if (nuptkInput.value.length < 16) {
+                nuptkHint.style.display = "block";
+                nuptkInput.classList.add("is-invalid");
+            } else {
+                nuptkHint.style.display = "none";
+            }
+        });
+
+        // nuptkInput.addEventListener("blur", function() {
+        //     nuptkHint.style.display = "none"; 
+        // });
+        nuptkInput.addEventListener("blur", function() {
+            if (nuptkInput.value.length < 16) {
+                nuptkHint.style.display = "none"; 
+                nuptkInput.classList.add("is-invalid");
+            } else {
+                nuptkHint.style.display = "none"; 
+                nuptkInput.classList.remove("is-invalid")
+            }
+        });
+
+        // SWEET ALERT
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true
+        })
+
+        @if(Session::has('error'))
+            Toast.fire({
+                icon: 'error',
+                title: '{{ Session::get('error') }}'
+            })
+        @endif
     </script>
 @stop

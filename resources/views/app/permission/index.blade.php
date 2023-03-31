@@ -12,7 +12,9 @@
     </div>
     
     <div class="d-flex justify-content-between mx-1 mt-3">
+        @if (auth()->user()->can('create-permission'))
         <a href="{{ route('permission.create') }}" class="btn bg-dark">Tambah Izin</a>
+        @endif
         <span id="time" class="jam"></span>
     </div>
 @stop

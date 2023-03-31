@@ -13,8 +13,12 @@
 
     <div class="d-flex justify-content-between mx-1 mt-3">
         <div>
+            @if (auth()->user()->can('create-kehadiran-murid'))
             <a href="{{ route('murid.create') }}" class="btn bg-dark">Tambah absen hadir</a>
+            @endif
+            @if (auth()->user()->can('edit-kehadiran-murid'))
             <a href="{{ route('murid.edit') }}" class="btn bg-dark ms-5">Tambah absen pulang</a>
+            @endif
         </div>
 
         <span id="time" class="jam align-self-center"></span>

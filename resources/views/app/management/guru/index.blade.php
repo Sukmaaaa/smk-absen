@@ -14,8 +14,8 @@
     <div class="d-flex justify-content-between mx-1 mt-3">
         @if (auth()->user()->can('create-user'))
             <a href="{{ route('management.guru.create') }}" class="btn bg-dark">Tambah Guru</a>
-            <span id="time" class="jam"></span>
         @endif
+            <span id="time" class="jam"></span>
     </div>
 @stop
 
@@ -61,10 +61,6 @@
         </div>
     </div>
 
-@stop
-
-@section('css')
-    <link rel="stylesheet" href="/css/admin_custom.css">
 @stop
 
 @section('js')

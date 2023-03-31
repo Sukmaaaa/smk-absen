@@ -12,7 +12,9 @@
     </div>
     
     <div class="d-flex justify-content-between mx-1 mt-3">
+        @if (auth()->user()->can('create-jurusan'))
         <a href="{{ route('jurusan.create') }}" class="btn bg-dark">Tambah Jurusan</a>
+        @endif
         <span id="time" class="jam"></span>
     </div>
 @stop

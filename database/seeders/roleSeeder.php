@@ -59,6 +59,8 @@ class roleSeeder extends Seeder
         Permission::create(['name' => 'view-kehadiran-murid']);
         Permission::create(['name' => 'create-kehadiran-murid']);
         Permission::create(['name' => 'edit-kehadiran-murid']);
+        // LOG
+        Permission::create(['name' => 'view-audit']);
 
         // MEMBUAT ROLE
         $superAdmin = Role::create([
@@ -121,6 +123,8 @@ class roleSeeder extends Seeder
             'view-kehadiran-murid',
             'create-kehadiran-murid',
             'edit-kehadiran-murid',
+            // AUDIT
+            'view-audit'
         ]);
         $admin->givePermissionTo([
             // HALAMAN USER
@@ -166,6 +170,7 @@ class roleSeeder extends Seeder
             'view-kehadiran-murid',
             'create-kehadiran-murid',
             'edit-kehadiran-murid',
+            'view-audit',
         ]);
         $user->givePermissionTo([
             // HALAMAN KEHADIRAN GURU

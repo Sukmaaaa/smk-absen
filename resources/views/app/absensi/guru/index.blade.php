@@ -13,8 +13,12 @@
     
     <div class="d-flex justify-content-between mx-1 mt-3">
         <div>
+            @if (auth()->user()->can('create-kehadiran-guru'))
             <a href="{{ route('guru.create') }}" class="btn bg-dark">Tambah absen hadir</a>
+            @endif
+            @if (auth()->user()->can('edit-kehadiran-guru'))
             <a href="{{ route('guru.edit') }}" class="btn bg-dark ms-5">Tambah absen pulang</a>
+            @endif
         </div>
         <span id="time" class="jam align-self-center"></span>
     </div>
@@ -23,19 +27,19 @@
 @section('content')
     @php
 
-    $heads = ['No.', 'Nama Guru'];
+    $heads = ['No.', 'Nama Guru', 'Absen Hadir'];
     $i = 1;
     $newAbsensi = [];
     foreach ($absensi as $absensis) {
         $btnDetails = '<a class="btn btn-xs btn-default text-teal mx-1 shadow" title="Details" href="'.route('guru.index', $absensis->id).'">';
 
-        $newAbsensi[] = [$i++, $absensis->user->name];
+        $newAbsensi[] = [$i++, $absensis->user->name, $absensis->absen_hadir];
     }
 
     $config = [
     'data' => $newAbsensi,
     'order' => [[1, 'asc']],
-    'columns' => [null, ['orderable' => false]],
+    'columns' => [null, null, ['orderable' => false]],
     ];
     @endphp
 
@@ -55,9 +59,6 @@
 
 @stop
 
-@section('css')
-    <link rel="stylesheet" href="/css/admin_custom.css">
-@stop
 
 @section('js')
     <!-- DIDAHULUKAN KARENA DI DALAM tanggal.js MEMANGGIL VARIABLE DI DALAM localTime.js -->

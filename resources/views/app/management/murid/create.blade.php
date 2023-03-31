@@ -45,8 +45,9 @@
                             </x-adminlte-input-file>
 
                             <div class="col-md-6">
-                                <label>NUPTK</label><span class="fw-bold" style="color:red; font-weight: bold">*</span>
-                                <x-adminlte-input type="number" name="NIS" placeholder="1111222200" title="Isi NIS" maxlength="10" required></x-adminlte-input>
+                                <label>NIS</label><span class="fw-bold" style="color:red; font-weight: bold">*</span>
+                                <x-adminlte-input type="number" id="nisInput" name="NIS" placeholder="1111222200" title="Isi NIS" pattern="[0-9]{10}" maxlength="10" oninput="limitInputLength(this)" required></x-adminlte-input>
+                                <p id="nisHint" class="invalid-feedback">NIS harus terdiri dari 10 karakter</p>
                             </div>
                         </div>
                         <!-- END FIELD FOTO & NIS -->
@@ -124,6 +125,7 @@
                             <div class="col-md-6">
                                 <label>RFID</label><span class="fw-bold" style="color:red; font-weight: bold">*</span>
                                 <x-adminlte-input type="text" name="rfid" id="rfid" placeholder="0x82 1x2d 21dp 92x1" maxlength="19" title="Isi rfid" required></x-adminlte-input>
+                                <p id="rfidHint" class="invalid-feedback">Panjang RFID harus 19 karakter</p>
                             </div>
                         </div>
                         <!-- END FIELD RFID -->
@@ -131,7 +133,7 @@
                         <!-- TOMBOL SIMPAN & KEMBALI -->
                         <footer class="mt-4">
                             <div class="d-flex flex-row justify-content-between">
-                                <a href="{{ route('management.guru.index') }}" class="btn btn-default">Kembali</a>
+                                <a href="{{ route('management.murid.index') }}" class="btn btn-default">Kembali</a>
                                 <x-adminlte-button class="btn bg-dark" label="Simpan" type="submit" id="form"></x-adminlte-button>
                             </div>
                         </footer>
@@ -148,6 +150,7 @@
     <script type="text/javascript" src="{{ URL::asset('js/localTime.js') }}"></script>
     <script type="text/javascript" src="{{ URL::asset('js/tanggal.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         $(document).ready(function() {
             $('.select2').select2();
@@ -174,14 +177,87 @@
             $('.select2').select2();
         });
 
+        // LIMIT INPUT NIS
+        function limitInputLength(input) {
+            if (input.value.length > input.maxLength) {
+                input.value = input.value.slice(0, input.maxLength);
+            }
+        }
         // FORMAT RFID
         const rfidInput = document.getElementById("rfid");
+        const rfidHint = document.getElementById("rfidHint");
 
         rfidInput.addEventListener("input", function(e) {
             let value = e.target.value.replace(/\s/g, ""); // MENGHAPUS SPASI
             value = value.match(/.{1,4}/g).join(" "); // MENAMBAH SPASI SETIAP 4 KARAKTER
             e.target.value = value;
             console.log(value.length);
+
+            if (value.length < 19) {
+                rfidHint.style.display = "block";
+                rfidInput.classList.add("is-invalid");
+            } else {
+                rfidHint.style.display = "none";
+                rfidInput.classList.remove("is-invalid");
+            }
         });
+
+        rfidInput.addEventListener("click", function() {
+            if (rfidInput.value.length < 19) {
+                rfidHint.style.display = "block";
+                rfidInput.classList.add("is-invalid");
+            } else {
+                rfidHint.style.display = "none";
+            }
+        });
+
+        rfidInput.addEventListener("blur", function() {
+            rfidHint.style.display = "none";
+        });
+
+        // NUPTK
+        const nisInput = document.getElementById("nisInput");
+        const nisHint = document.getElementById("nisHint")
+
+        nisInput.addEventListener("input", function() {
+            console.log(nisInput.value.length);
+            if (nisInput.value.length < 10) {
+                nisHint.style.display = "block";
+                nisInput.classList.add("is-invalid");
+            } else {
+                nisHint.style.display = "none";
+                nisInput.classList.remove("is-invalid");
+            }
+        });
+
+        nisInput.addEventListener("click", function() {
+            if (nisInput.value.length < 10) {
+                nisHint.style.display = "block";
+                nisInput.classList.add("is-invalid");
+            } else {
+                nisHint.style.display = "none";
+                nisInput.classList.remove("is-invalid");
+            }
+        });
+
+        nisInput.addEventListener("blur", function() {
+            nisHint.style.display = "none"; 
+        });
+
+        // SWEET ALERT
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true
+        })
+
+        @if(Session::has('error'))
+            Toast.fire({
+                icon: 'error',
+                title: '{{ Session::get('error') }}'
+            })
+        @endif
     </script>
 @stop
